@@ -235,6 +235,29 @@ void main(){
 }
 `;
 
+interface LaserFlowProps {
+  className?: string;
+  style?: React.CSSProperties;
+  wispDensity?: number;
+  dpr?: number;
+  mouseSmoothTime?: number;
+  mouseTiltStrength?: number;
+  horizontalBeamOffset?: number;
+  verticalBeamOffset?: number;
+  flowSpeed?: number;
+  verticalSizing?: number;
+  horizontalSizing?: number;
+  fogIntensity?: number;
+  fogScale?: number;
+  wispSpeed?: number;
+  wispIntensity?: number;
+  flowStrength?: number;
+  decay?: number;
+  falloffStart?: number;
+  fogFallSpeed?: number;
+  color?: string;
+}
+
 export const LaserFlow = ({
   className,
   style,
@@ -256,27 +279,27 @@ export const LaserFlow = ({
   falloffStart = 1.2,
   fogFallSpeed = 0.6,
   color = '#4a388f'
-}) => {
-  const mountRef = useRef(null);
-  const rendererRef = useRef(null);
-  const uniformsRef = useRef(null);
+}: LaserFlowProps) => {
+  const mountRef = useRef<HTMLDivElement | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const uniformsRef = useRef<any>(null);
   const hasFadedRef = useRef(false);
-  const rectRef = useRef(null);
+  const rectRef = useRef<DOMRect | null>(null);
   const baseDprRef = useRef(1);
   const currentDprRef = useRef(1);
-  const fpsSamplesRef = useRef([]);
+  const fpsSamplesRef = useRef<number[]>([]);
   const lastFpsCheckRef = useRef(performance.now());
   const emaDtRef = useRef(16.7);
   const pausedRef = useRef(false);
   const inViewRef = useRef(true);
 
-  const hexToRGB = (hex) => {
+  const hexToRGB = (hex: string) => {
     let c = hex.trim();
     if (c[0] === '#') c = c.slice(1);
     if (c.length === 3)
       c = c
         .split('')
-        .map(x => x + x)
+        .map((x: string) => x + x)
         .join('');
     const n = parseInt(c, 16) || 0xffffff;
     return { r: ((n >> 16) & 255) / 255, g: ((n >> 8) & 255) / 255, b: (n & 255) / 255 };
@@ -284,6 +307,8 @@ export const LaserFlow = ({
 
   useEffect(() => {
     const mount = mountRef.current;
+    if (!mount) return;
+
     const renderer = new THREE.WebGLRenderer({
       antialias: false,
       alpha: true,
@@ -381,7 +406,7 @@ export const LaserFlow = ({
 
     setSizeNow();
     const ro = new ResizeObserver(scheduleResize);
-    ro.observe(mount);
+    if (mount) ro.observe(mount);
 
     const io = new IntersectionObserver(
       entries => {
@@ -389,14 +414,14 @@ export const LaserFlow = ({
       },
       { root: null, threshold: 0 }
     );
-    io.observe(mount);
+    if (mount) io.observe(mount);
 
     const onVis = () => {
       pausedRef.current = document.hidden;
     };
     document.addEventListener('visibilitychange', onVis, { passive: true });
 
-    const updateMouse = (clientX, clientY) => {
+    const updateMouse = (clientX: number, clientY: number) => {
       const rect = rectRef.current;
       if (!rect) return;
       const x = clientX - rect.left;
@@ -405,14 +430,14 @@ export const LaserFlow = ({
       const hb = rect.height * ratio;
       mouseTarget.set(x * ratio, hb - y * ratio);
     };
-    const onMove = (ev) => updateMouse(ev.clientX, ev.clientY);
+    const onMove = (ev: PointerEvent) => updateMouse(ev.clientX, ev.clientY);
     const onLeave = () => mouseTarget.set(0, 0);
     canvas.addEventListener('pointermove', onMove, { passive: true });
     canvas.addEventListener('pointerdown', onMove, { passive: true });
     canvas.addEventListener('pointerenter', onMove, { passive: true });
     canvas.addEventListener('pointerleave', onLeave, { passive: true });
 
-    const onCtxLost = (e) => {
+    const onCtxLost = (e: Event) => {
       e.preventDefault();
       pausedRef.current = true;
     };
@@ -425,14 +450,14 @@ export const LaserFlow = ({
 
     let raf = 0;
 
-    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
     const dprFloor = 0.6;
     const lowerThresh = 50;
     const upperThresh = 58;
     let lastDprChangeRef = 0;
     const dprChangeCooldown = 2000;
 
-    const adjustDprIfNeeded = (now) => {
+    const adjustDprIfNeeded = (now: number) => {
       const elapsed = now - lastFpsCheckRef.current;
       if (elapsed < 750) return;
 

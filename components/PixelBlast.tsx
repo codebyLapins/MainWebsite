@@ -445,9 +445,9 @@ const PixelBlast = ({
         return Math.random();
       };
       const timeOffset = randomFloat() * 1000;
-      let composer;
+      let composer: any;
       let touch: any;
-      let liquidEffect;
+      let liquidEffect: any;
       if (liquid) {
         touch = createTouchTexture();
         touch.radiusScale = liquidRadius;

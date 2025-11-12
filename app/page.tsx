@@ -1,140 +1,127 @@
 'use client';
 
 import { useState } from "react";
-import Image from "next/image";
-import PixelBlast from "@/components/PixelBlast";
+import Navbar, { translations } from "@/components/Navbar";
 import FuzzyText from "@/components/FuzzyText";
 import ShinyText from "@/components/ShinyText";
 import RotatingText from "@/components/RotatingText";
 import MagicBento from "@/components/MagicBento";
+import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
+import Dither from "@/components/Dither";
 
 export default function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentLang, setCurrentLang] = useState<'en' | 'lv'>('en');
+  const t = translations[currentLang];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white relative">
+      {/* Dither Background for Entire Page */}
+      <div className="fixed inset-0 w-full h-full" style={{ zIndex: 0 }}>
+        <Dither
+          waveColor={[0.3, 0.2, 0.5]}
+          disableAnimation={false}
+          enableMouseInteraction={true}
+          mouseRadius={0.2}
+          colorNum={4}
+          waveAmplitude={0.37}
+          waveFrequency={3.7}
+          waveSpeed={0.03}
+        />
+      </div>
+
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50">
-        <div className="flex justify-center mt-4 md:mt-8 px-4">
-          <div className="bg-[#4a388f]/10 backdrop-blur-md border border-[#4a388f]/40 rounded-full px-6 md:px-12 py-1.5 md:py-2 flex items-center gap-8 md:gap-20 shadow-lg shadow-[#4a388f]/20 relative">
-            <div className="flex items-center gap-2 md:gap-3">
-              <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center overflow-visible relative">
-                <Image src="/logo.png" alt="CodeByLapins" width={120} height={120} className="w-32 h-32 md:w-40 md:h-40 rounded-lg object-contain absolute" style={{ imageRendering: 'crisp-edges' }} />
-              </div>
-              <span className="text-sm md:text-xl font-semibold text-white">CodeByLapins</span>
-            </div>
+      <Navbar currentLang={currentLang} onLanguageChange={setCurrentLang} />
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex gap-6 md:gap-10 text-white text-sm md:text-base">
-              <a href="#home" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">Home</a>
-              <a href="#services" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">Services</a>
-              <a href="#about" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">About</a>
-              <a href="#works" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">Works</a>
-              <a href="#contact" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">Pricing</a>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden flex flex-col gap-1 p-2"
-              aria-label="Toggle menu"
-            >
-              <span className="w-1 h-1 bg-white rounded-full"></span>
-              <span className="w-1 h-1 bg-white rounded-full"></span>
-              <span className="w-1 h-1 bg-white rounded-full"></span>
-            </button>
-
-            {/* Mobile Dropdown Menu */}
-            {mobileMenuOpen && (
-              <div className="absolute top-full mt-2 right-0 bg-[#4a388f]/95 backdrop-blur-md border border-[#4a388f]/40 rounded-2xl py-4 px-6 flex flex-col gap-3 shadow-lg shadow-[#4a388f]/20 md:hidden">
-                <a href="#home" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#9b7fd9] transition-colors font-medium text-white">Home</a>
-                <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#9b7fd9] transition-colors font-medium text-white">Services</a>
-                <a href="#about" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#9b7fd9] transition-colors font-medium text-white">About</a>
-                <a href="#works" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#9b7fd9] transition-colors font-medium text-white">Works</a>
-                <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#9b7fd9] transition-colors font-medium text-white">Pricing</a>
-              </div>
-            )}
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section with PixelBlast - Full Screen */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center">
-        {/* PixelBlast Background covering entire section */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <PixelBlast
-            variant="square"
-            pixelSize={6}
-            color="#4a388f"
-            patternScale={3}
-            patternDensity={1.6}
-            pixelSizeJitter={0.5}
-            enableRipples
-            rippleSpeed={0.4}
-            rippleThickness={0.12}
-            rippleIntensityScale={1.5}
-            liquid
-            liquidStrength={0.12}
-            liquidRadius={1.2}
-            liquidWobbleSpeed={5}
-            speed={0.6}
-            edgeFade={0}
-            transparent
-          />
-          {/* Dark blur vignette effect on sides */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black via-black/50 to-transparent"></div>
-            <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black via-black/50 to-transparent"></div>
-          </div>
-        </div>
-        {/* Bottom fade overlay that extends beyond the section */}
-        <div className="absolute left-0 right-0 bottom-0 h-96 bg-gradient-to-t from-black via-black/90 to-transparent pointer-events-none z-10"></div>
+      {/* Hero Section - Full Screen */}
+      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
         {/* Hero Content */}
-        <div className="relative z-20 text-center px-4 max-w-4xl flex flex-col items-center w-full">
-          <div className="flex flex-col items-center w-full">
-            <div className="w-full flex justify-center mb-2 md:mb-4">
-              <FuzzyText
-                baseIntensity={0.13}
-                hoverIntensity={0.72}
-                enableHover={true}
-                fontSize="clamp(2.5rem, 10vw, 6rem)"
-                fontWeight={900}
-                color="#ffffff"
-              >
-                Beautiful.
-              </FuzzyText>
+        <div className="relative z-20 text-center px-6 max-w-4xl flex flex-col items-center justify-center w-full mx-auto">
+          <div className="flex flex-col items-center w-full" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.6)' }}>
+            <div className="w-full flex justify-center mb-3 md:mb-4">
+              <div style={{ fontSize: '3.5rem', fontWeight: 900, color: '#ffffff' }} className="md:hidden">
+                <FuzzyText
+                  baseIntensity={0.13}
+                  hoverIntensity={0.72}
+                  enableHover={false}
+                  fontSize="3.5rem"
+                  fontWeight={900}
+                  color="#ffffff"
+                >
+                  {t.beautiful}
+                </FuzzyText>
+              </div>
+              <div className="hidden md:block">
+                <FuzzyText
+                  baseIntensity={0.13}
+                  hoverIntensity={0.72}
+                  enableHover={true}
+                  fontSize="6rem"
+                  fontWeight={900}
+                  color="#ffffff"
+                >
+                  {t.beautiful}
+                </FuzzyText>
+              </div>
             </div>
-            <div className="w-full flex justify-center mb-2 md:mb-4">
-              <FuzzyText
-                baseIntensity={0.13}
-                hoverIntensity={0.72}
-                enableHover={true}
-                fontSize="clamp(2.5rem, 10vw, 6rem)"
-                fontWeight={900}
-                color="#ffffff"
-              >
-                Functional.
-              </FuzzyText>
+            <div className="w-full flex justify-center mb-3 md:mb-4">
+              <div style={{ fontSize: '3.5rem', fontWeight: 900, color: '#ffffff' }} className="md:hidden">
+                <FuzzyText
+                  baseIntensity={0.13}
+                  hoverIntensity={0.72}
+                  enableHover={false}
+                  fontSize="3.5rem"
+                  fontWeight={900}
+                  color="#ffffff"
+                >
+                  {t.functional}
+                </FuzzyText>
+              </div>
+              <div className="hidden md:block">
+                <FuzzyText
+                  baseIntensity={0.13}
+                  hoverIntensity={0.72}
+                  enableHover={true}
+                  fontSize="6rem"
+                  fontWeight={900}
+                  color="#ffffff"
+                >
+                  {t.functional}
+                </FuzzyText>
+              </div>
             </div>
-            <div className="w-full flex justify-center">
-              <FuzzyText
-                baseIntensity={0.13}
-                hoverIntensity={0.72}
-                enableHover={true}
-                fontSize="clamp(2.5rem, 10vw, 6rem)"
-                fontWeight={900}
-                color="#ffffff"
-              >
-                Yours.
-              </FuzzyText>
+            <div className="w-full flex justify-center mb-2">
+              <div style={{ fontSize: '3.5rem', fontWeight: 900, color: '#ffffff' }} className="md:hidden">
+                <FuzzyText
+                  baseIntensity={0.13}
+                  hoverIntensity={0.72}
+                  enableHover={false}
+                  fontSize="3.5rem"
+                  fontWeight={900}
+                  color="#ffffff"
+                >
+                  {t.yours}
+                </FuzzyText>
+              </div>
+              <div className="hidden md:block">
+                <FuzzyText
+                  baseIntensity={0.13}
+                  hoverIntensity={0.72}
+                  enableHover={true}
+                  fontSize="6rem"
+                  fontWeight={900}
+                  color="#ffffff"
+                >
+                  {t.yours}
+                </FuzzyText>
+              </div>
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-6 md:mt-8 w-full flex justify-center">
             <RotatingText
-              texts={['Websites', 'Web Apps', 'Mobile Apps', 'E-Commerce']}
-              mainClassName="px-4 py-2 bg-[#33496b] text-white overflow-hidden rounded-lg text-2xl font-semibold"
+              texts={[t.websites, t.webApps, t.mobileApps, t.ecommerceShort]}
+              mainClassName="px-5 py-2.5 bg-[#33496b] text-white overflow-hidden rounded-lg text-base md:text-2xl font-semibold shadow-lg"
               staggerFrom="last"
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
@@ -146,144 +133,259 @@ export default function Home() {
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center mt-8 md:mt-12 w-full px-6 sm:px-0">
             <a
-              href="#services"
-              className="px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 min-w-[160px]"
+              href="#contact"
+              className="w-full sm:w-auto max-w-[280px] px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 text-center text-sm md:text-base shadow-lg"
             >
-              <ShinyText text="Get Started" speed={3} />
+              <ShinyText text={t.getInTouch} speed={3} />
             </a>
             <a
               href="#about"
-              className="px-8 py-4 border-2 border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-all transform hover:scale-105 min-w-[160px]"
+              className="w-full sm:w-auto max-w-[280px] px-6 py-3 md:px-8 md:py-4 border-2 border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-all transform hover:scale-105 text-center text-sm md:text-base shadow-lg"
             >
-              <ShinyText text="Learn More" speed={3} />
+              <ShinyText text={t.learnMore} speed={3} />
             </a>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-24 px-0 bg-black relative z-10">
-        <h2 className="text-5xl font-bold mb-12 text-center text-white">Services</h2>
-        <MagicBento
-          textAutoHide={true}
-          enableStars={true}
-          enableSpotlight={true}
-          enableBorderGlow={true}
-          enableTilt={true}
-          enableMagnetism={true}
-          clickEffect={true}
-          spotlightRadius={300}
-          particleCount={12}
-          glowColor="74, 56, 143"
-        />
+      <section id="services" className="pt-0 pb-16 md:pb-24 px-4 md:px-0 relative" style={{ zIndex: 30 }}>
+        <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white relative z-10">{t.servicesTitle}</h2>
+        <div className="relative z-10">
+          <MagicBento
+            textAutoHide={true}
+            enableStars={true}
+            enableSpotlight={true}
+            enableBorderGlow={true}
+            enableTilt={true}
+            enableMagnetism={true}
+            clickEffect={true}
+            spotlightRadius={300}
+            particleCount={12}
+            glowColor="74, 56, 143"
+          />
+        </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 px-6 bg-zinc-950 relative z-10">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-5xl font-bold mb-12 text-center text-[#4a388f]">About</h2>
-          <div className="bg-zinc-900 rounded-2xl p-8 border border-[#4a388f]/20">
-            <h3 className="text-2xl font-bold text-white mb-4">Arturs Lapiņš</h3>
-            <p className="text-lg text-[#4a388f] mb-6">Computer Science Student</p>
-            <p className="text-xl leading-relaxed text-gray-300 mb-6">
-              I'm a computer science student passionate about creating innovative web solutions
-              and applications. I specialize in building modern, responsive websites and apps
-              that combine cutting-edge technology with exceptional user experiences.
+      <section id="about" className="py-16 md:py-24 px-4 md:px-6 relative z-10">
+        <div className="container mx-auto max-w-4xl relative z-10">
+          <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white">{t.aboutTitle}</h2>
+          <div className="bg-zinc-900 rounded-2xl p-6 md:p-8 border border-[#4a388f]/20">
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">{t.aboutName}</h3>
+            <p className="text-base md:text-lg text-[#4a388f] mb-4 md:mb-6">{t.aboutRole}</p>
+            <p className="text-base md:text-xl leading-relaxed text-gray-300 mb-4 md:mb-6">
+              {t.aboutText1}
             </p>
-            <p className="text-xl leading-relaxed text-gray-300">
-              Whether you need a stunning website, a custom web application, or mobile app development,
-              I bring creativity and technical expertise to every project.
+            <p className="text-base md:text-xl leading-relaxed text-gray-300">
+              {t.aboutText2}
             </p>
           </div>
         </div>
       </section>
 
       {/* Works Section */}
-      <section id="works" className="py-24 px-6 bg-black relative z-10">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-5xl font-bold mb-16 text-center text-[#4a388f]">Works</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Project placeholders - you can add real projects later */}
-            <div className="bg-zinc-900 rounded-2xl overflow-hidden border border-[#4a388f]/20 hover:border-[#4a388f] transition-all hover:transform hover:scale-105">
-              <div className="h-48 bg-gradient-to-br from-[#4a388f] to-purple-900 flex items-center justify-center">
-                <span className="text-2xl font-bold">Project 1</span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3">Coming Soon</h3>
-                <p className="text-gray-400 mb-4">
-                  Exciting projects are in development. Check back soon to see my latest work.
-                </p>
-                <div className="flex gap-2">
-                  <span className="px-3 py-1 bg-[#4a388f]/20 text-[#4a388f] rounded-full text-sm">React</span>
-                  <span className="px-3 py-1 bg-[#4a388f]/20 text-[#4a388f] rounded-full text-sm">Next.js</span>
-                </div>
-              </div>
-            </div>
+      <section id="works" className="py-16 md:py-24 px-4 md:px-6 relative z-10">
+        <h2 className="text-3xl md:text-5xl font-bold mb-12 md:mb-16 text-center text-white relative z-10">{t.worksTitle}</h2>
 
-            <div className="bg-zinc-900 rounded-2xl overflow-hidden border border-[#4a388f]/20 hover:border-[#4a388f] transition-all hover:transform hover:scale-105">
-              <div className="h-48 bg-gradient-to-br from-purple-900 to-[#4a388f] flex items-center justify-center">
-                <span className="text-2xl font-bold">Project 2</span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3">Coming Soon</h3>
-                <p className="text-gray-400 mb-4">
-                  Exciting projects are in development. Check back soon to see my latest work.
-                </p>
-                <div className="flex gap-2">
-                  <span className="px-3 py-1 bg-[#4a388f]/20 text-[#4a388f] rounded-full text-sm">TypeScript</span>
-                  <span className="px-3 py-1 bg-[#4a388f]/20 text-[#4a388f] rounded-full text-sm">Tailwind</span>
-                </div>
+        {/* Mobile: Simple stacked layout */}
+        <div className="md:hidden flex flex-col gap-6 max-w-xl mx-auto relative z-10">
+          <div className="bg-gradient-to-br from-[#4a388f] to-purple-900 rounded-2xl p-6 flex flex-col justify-between min-h-[280px]">
+            <div>
+              <h3 className="text-2xl font-bold mb-3">{t.project1}</h3>
+              <p className="text-sm text-gray-200 mb-3">
+                {t.project1Desc}
+              </p>
+              <div className="flex gap-2 flex-wrap">
+                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">React</span>
+                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">Next.js</span>
               </div>
             </div>
+            <div className="text-xs text-gray-300 mt-4">{t.comingSoon}</div>
           </div>
+
+          <div className="bg-gradient-to-br from-purple-900 to-[#4a388f] rounded-2xl p-6 flex flex-col justify-between min-h-[280px]">
+            <div>
+              <h3 className="text-2xl font-bold mb-3">{t.project2}</h3>
+              <p className="text-sm text-gray-200 mb-3">
+                {t.project2Desc}
+              </p>
+              <div className="flex gap-2 flex-wrap">
+                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">TypeScript</span>
+                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">Tailwind</span>
+              </div>
+            </div>
+            <div className="text-xs text-gray-300 mt-4">{t.comingSoon}</div>
+          </div>
+
+          <div className="bg-gradient-to-br from-[#33496b] to-[#4a388f] rounded-2xl p-6 flex flex-col justify-between min-h-[280px]">
+            <div>
+              <h3 className="text-2xl font-bold mb-3">{t.project3}</h3>
+              <p className="text-sm text-gray-200 mb-3">
+                {t.project3Desc}
+              </p>
+              <div className="flex gap-2 flex-wrap">
+                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">Mobile</span>
+                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">Web</span>
+              </div>
+            </div>
+            <div className="text-xs text-gray-300 mt-4">{t.comingSoon}</div>
+          </div>
+        </div>
+
+        {/* Desktop: ScrollStack layout */}
+        <div className="hidden md:block max-w-5xl mx-auto relative z-10" style={{ isolation: 'isolate' }}>
+          <ScrollStack
+            itemDistance={120}
+            itemScale={0.03}
+            itemStackDistance={25}
+            baseScale={0.85}
+            useWindowScroll={true}
+          >
+            <ScrollStackItem>
+              <div className="bg-gradient-to-br from-[#4a388f] to-purple-900 h-full rounded-2xl p-6 md:p-8 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">{t.project1}</h3>
+                  <p className="text-sm md:text-lg text-gray-200 mb-3 md:mb-4">
+                    {t.project1Desc}
+                  </p>
+                  <div className="flex gap-2 flex-wrap">
+                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">React</span>
+                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">Next.js</span>
+                  </div>
+                </div>
+                <div className="text-xs md:text-sm text-gray-300 mt-4">{t.comingSoon}</div>
+              </div>
+            </ScrollStackItem>
+            <ScrollStackItem>
+              <div className="bg-gradient-to-br from-purple-900 to-[#4a388f] h-full rounded-2xl p-6 md:p-8 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">{t.project2}</h3>
+                  <p className="text-sm md:text-lg text-gray-200 mb-3 md:mb-4">
+                    {t.project2Desc}
+                  </p>
+                  <div className="flex gap-2 flex-wrap">
+                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">TypeScript</span>
+                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">Tailwind</span>
+                  </div>
+                </div>
+                <div className="text-xs md:text-sm text-gray-300 mt-4">{t.comingSoon}</div>
+              </div>
+            </ScrollStackItem>
+            <ScrollStackItem>
+              <div className="bg-gradient-to-br from-[#33496b] to-[#4a388f] h-full rounded-2xl p-6 md:p-8 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">{t.project3}</h3>
+                  <p className="text-sm md:text-lg text-gray-200 mb-3 md:mb-4">
+                    {t.project3Desc}
+                  </p>
+                  <div className="flex gap-2 flex-wrap">
+                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">Mobile</span>
+                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">Web</span>
+                  </div>
+                </div>
+                <div className="text-xs md:text-sm text-gray-300 mt-4">{t.comingSoon}</div>
+              </div>
+            </ScrollStackItem>
+          </ScrollStack>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 px-6 bg-black relative z-10">
-        <div className="container mx-auto max-w-3xl">
-          <h2 className="text-5xl font-bold mb-12 text-center text-[#4a388f]">Get In Touch</h2>
-          <div className="bg-zinc-950 rounded-2xl p-8 border border-[#4a388f]/20">
-            <p className="text-xl text-center text-gray-300 mb-8">
-              Ready to start your project? Let's discuss how I can help bring your ideas to life.
-            </p>
-            <form className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors"
-                  placeholder="Your name"
-                />
+      <section id="contact" className="py-16 md:py-24 px-4 md:px-6 relative z-10">
+        <div className="container mx-auto max-w-6xl relative z-10">
+          <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white">{t.getInTouchTitle}</h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+            {/* Contact Form Box */}
+            <div className="bg-zinc-950 rounded-2xl p-6 md:p-8 border border-[#4a388f]/20">
+              <h3 className="text-xl md:text-2xl font-semibold text-white mb-4 md:mb-6">{t.sendMessage}</h3>
+              <p className="text-sm md:text-base text-gray-300 mb-6 md:mb-8">
+                {t.readyToStart}
+              </p>
+
+              <form className="space-y-4 md:space-y-5">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">{t.name}</label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors text-sm md:text-base"
+                    placeholder={t.yourName}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">{t.email}</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors text-sm md:text-base"
+                    placeholder={t.yourEmail}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">{t.message}</label>
+                  <textarea
+                    id="message"
+                    rows={5}
+                    className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors resize-none text-sm md:text-base"
+                    placeholder={t.tellAboutProject}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-3 md:py-4 bg-[#4a388f] text-white rounded-lg font-semibold hover:bg-[#9b7fd9] transition-all transform hover:scale-105 text-sm md:text-base"
+                >
+                  {t.sendMessage}
+                </button>
+              </form>
+            </div>
+
+            {/* Contact Information Box */}
+            <div className="bg-zinc-950 rounded-2xl p-6 md:p-8 border border-[#4a388f]/20 flex flex-col">
+              <h3 className="text-xl md:text-2xl font-semibold text-white mb-4 md:mb-6">{t.getInTouchTitle}</h3>
+              <p className="text-sm md:text-base text-gray-300 mb-6 md:mb-8">
+                {t.readyToStart}
+              </p>
+
+              <div className="space-y-6 flex-grow">
+                {/* Phone */}
+                <div className="flex flex-col p-4 bg-zinc-900 rounded-lg border border-[#4a388f]/10">
+                  <div className="flex items-center gap-3 mb-2">
+                    <svg className="w-5 h-5 text-[#4a388f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    <p className="text-sm text-[#4a388f] font-semibold">{t.phone}</p>
+                  </div>
+                  <a href="tel:+37124928643" className="text-white hover:text-[#9b7fd9] transition-colors text-base md:text-lg ml-8">+371 24928643</a>
+                </div>
+
+                {/* Email */}
+                <div className="flex flex-col p-4 bg-zinc-900 rounded-lg border border-[#4a388f]/10">
+                  <div className="flex items-center gap-3 mb-2">
+                    <svg className="w-5 h-5 text-[#4a388f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <p className="text-sm text-[#4a388f] font-semibold">{t.email}</p>
+                  </div>
+                  <a href="mailto:info@codebylapins.com" className="text-white hover:text-[#9b7fd9] transition-colors text-base md:text-lg ml-8 break-all">info@codebylapins.com</a>
+                </div>
+
+                {/* Location */}
+                <div className="flex flex-col p-4 bg-zinc-900 rounded-lg border border-[#4a388f]/10">
+                  <div className="flex items-center gap-3 mb-2">
+                    <svg className="w-5 h-5 text-[#4a388f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <p className="text-sm text-[#4a388f] font-semibold">{t.location}</p>
+                  </div>
+                  <p className="text-white text-base md:text-lg ml-8">{t.locationValue}</p>
+                </div>
               </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors"
-                  placeholder="your@email.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
-                <textarea
-                  id="message"
-                  rows={5}
-                  className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors resize-none"
-                  placeholder="Tell me about your project..."
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full py-4 bg-[#4a388f] text-white rounded-lg font-semibold hover:bg-[#9b7fd9] transition-all transform hover:scale-105"
-              >
-                Send Message
-              </button>
-            </form>
+            </div>
           </div>
         </div>
       </section>
@@ -291,7 +393,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-8 px-6 bg-zinc-950 border-t border-white/10 relative z-10">
         <div className="container mx-auto text-center text-gray-400">
-          <p>&copy; 2025 CodeByLapins. All rights reserved.</p>
+          <p>&copy; 2025 CodeByLapins. {t.allRightsReserved}</p>
         </div>
       </footer>
     </div>

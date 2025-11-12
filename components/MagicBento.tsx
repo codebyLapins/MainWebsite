@@ -14,19 +14,19 @@ const cardData = [
     color: '#1a0d2e',
     title: 'Test Service 1',
     description: 'Test description text goes here',
-    label: 'Label 1'
+    label: ''
   },
   {
     color: '#1a0d2e',
     title: 'Test Service 2',
     description: 'Test description text goes here',
-    label: 'Label 2'
+    label: ''
   },
   {
     color: '#1a0d2e',
     title: 'Test Service 3',
     description: 'Test description text goes here',
-    label: 'Label 3'
+    label: ''
   }
 ];
 

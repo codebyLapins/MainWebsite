@@ -4,7 +4,14 @@
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
       "Bash(git add:*)",
-      "Bash(git commit -m \"$(cat <<''EOF''\nFix TypeScript and build errors for GitHub Pages deployment\n\n- Add @types/three for THREE.js type definitions\n- Fix ESLint configuration to use FlatCompat\n- Add proper TypeScript types to all components\n- Fix null checks in LaserFlow, MagicBento, and PixelBlast\n- Disable strict ESLint rules for any types and unescaped entities\n- Successfully build static export\n\nGenerated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+      "Bash(git commit -m \"$(cat <<''EOF''\nFix TypeScript and build errors for GitHub Pages deployment\n\n- Add @types/three for THREE.js type definitions\n- Fix ESLint configuration to use FlatCompat\n- Add proper TypeScript types to all components\n- Fix null checks in LaserFlow, MagicBento, and PixelBlast\n- Disable strict ESLint rules for any types and unescaped entities\n- Successfully build static export\n\nGenerated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(npm run dev:*)",
+      "Bash(move latvia.svg public )",
+      "Bash(move unitedkingdom.svg public )",
+      "Bash(move website.svg public )",
+      "Bash(move ecommerce.svg public )",
+      "Bash(move framer.svg public:*)"
     ],
     "deny": [],
     "ask": []

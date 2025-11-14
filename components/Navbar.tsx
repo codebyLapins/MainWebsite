@@ -227,10 +227,16 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
                             <Image src="/website.svg" alt="Website" width={24} height={24} className="w-6 h-6" />
                             <h3 className="font-semibold text-white text-lg">{t.website}</h3>
                           </div>
-                          <a href="#services" className="block text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5">
+                          <a href="/services/website-development" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
+                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
                             {t.websiteDev}
                           </a>
-                          <a href="#services" className="block text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5">
+                          <a href="/services/website-maintenance" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
+                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
                             {t.websiteMaintenance}
                           </a>
                         </div>
@@ -241,10 +247,16 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
                             <Image src="/ecommerce.svg" alt="E-commerce" width={24} height={24} className="w-6 h-6" />
                             <h3 className="font-semibold text-white text-lg">{t.ecommerce}</h3>
                           </div>
-                          <a href="#services" className="block text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5">
+                          <a href="/services/online-store" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
+                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
                             {t.onlineStore}
                           </a>
-                          <a href="#services" className="block text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5">
+                          <a href="/services/shopify" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
+                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
                             {t.shopifyStore}
                           </a>
                         </div>
@@ -255,10 +267,16 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
                             <Image src="/framer.svg" alt="Design" width={24} height={24} className="w-6 h-6" />
                             <h3 className="font-semibold text-white text-lg">{t.design}</h3>
                           </div>
-                          <a href="#services" className="block text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5">
+                          <a href="/services/brand-identity" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
+                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
                             {t.brandIdentity}
                           </a>
-                          <a href="#services" className="block text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5">
+                          <a href="/services/frontend-design" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
+                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
                             {t.frontEnd}
                           </a>
                         </div>
@@ -358,10 +376,16 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
                           <Image src="/website.svg" alt="Website" width={16} height={16} className="w-4 h-4" />
                           <span className="text-xs font-semibold text-[#9b7fd9]">{t.website}</span>
                         </div>
-                        <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block text-gray-300 hover:text-white text-xs py-1">
+                        <a href="/services/website-development" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
+                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
+                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                           {t.websiteDev}
                         </a>
-                        <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block text-gray-300 hover:text-white text-xs py-1">
+                        <a href="/services/website-maintenance" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
+                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
+                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                           {t.websiteMaintenance}
                         </a>
                       </div>
@@ -370,10 +394,16 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
                           <Image src="/ecommerce.svg" alt="E-commerce" width={16} height={16} className="w-4 h-4" />
                           <span className="text-xs font-semibold text-[#9b7fd9]">{t.ecommerce}</span>
                         </div>
-                        <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block text-gray-300 hover:text-white text-xs py-1">
+                        <a href="/services/online-store" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
+                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
+                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                           {t.onlineStore}
                         </a>
-                        <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block text-gray-300 hover:text-white text-xs py-1">
+                        <a href="/services/shopify" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
+                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
+                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                           {t.shopifyStore}
                         </a>
                       </div>
@@ -382,10 +412,16 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
                           <Image src="/framer.svg" alt="Design" width={16} height={16} className="w-4 h-4" />
                           <span className="text-xs font-semibold text-[#9b7fd9]">{t.design}</span>
                         </div>
-                        <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block text-gray-300 hover:text-white text-xs py-1">
+                        <a href="/services/brand-identity" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
+                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
+                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                           {t.brandIdentity}
                         </a>
-                        <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block text-gray-300 hover:text-white text-xs py-1">
+                        <a href="/services/frontend-design" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
+                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
+                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                           {t.frontEnd}
                         </a>
                       </div>

@@ -218,7 +218,7 @@ export default function Home() {
       <section id="about" className="py-16 md:py-24 px-4 md:px-6 relative z-10">
         <div className="container mx-auto max-w-4xl relative z-10">
           <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white">{t.aboutTitle}</h2>
-          <div className="bg-zinc-900 rounded-2xl p-6 md:p-8 border border-[#4a388f]/20 font-[family-name:var(--font-ibm-plex-mono)]">
+          <div className="bg-zinc-900 rounded-2xl p-6 md:p-8 border border-[#4a388f]/20 font-[family-name:var(--font-ibm-plex-mono)] mb-8 md:mb-12">
             <p className="text-base md:text-xl leading-relaxed text-gray-300 mb-4 md:mb-6">
               {t.aboutText1}
             </p>
@@ -228,6 +228,109 @@ export default function Home() {
             <p className="text-base md:text-xl leading-relaxed text-gray-300">
               {t.aboutText3}
             </p>
+          </div>
+
+          {/* Service Feature Boxes */}
+          <div className="flex flex-col gap-4">
+            {/* Shopify Box */}
+            <a
+              href="/services/shopify"
+              className="group bg-zinc-900 rounded-xl p-6 border border-[#4a388f]/20 hover:border-[#4a388f]/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,56,143,0.3)] cursor-pointer"
+            >
+              <div className="flex items-center gap-6">
+                <div className="flex-shrink-0 p-3 bg-[#4a388f]/10 rounded-lg group-hover:bg-[#4a388f]/20 transition-colors">
+                  <img src="/1shopify.svg" alt="Shopify" className="w-12 h-12" />
+                </div>
+                <div className="flex-grow">
+                  <h3 className="text-lg md:text-xl font-semibold text-white mb-2 font-[family-name:var(--font-ibm-plex-mono)]">
+                    {t.shopifyTitle}
+                  </h3>
+                  <p className="text-sm text-gray-300 leading-relaxed font-[family-name:var(--font-ibm-plex-mono)]">
+                    {t.shopifyDesc}
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            {/* Framer Box */}
+            <a
+              href="/services/framer"
+              className="group bg-zinc-900 rounded-xl p-6 border border-[#4a388f]/20 hover:border-[#4a388f]/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,56,143,0.3)] cursor-pointer"
+            >
+              <div className="flex items-center gap-6">
+                <div className="flex-shrink-0 p-3 bg-[#4a388f]/10 rounded-lg group-hover:bg-[#4a388f]/20 transition-colors">
+                  <img src="/1framer.svg" alt="Framer" className="w-12 h-12" />
+                </div>
+                <div className="flex-grow">
+                  <h3 className="text-lg md:text-xl font-semibold text-white mb-2 font-[family-name:var(--font-ibm-plex-mono)]">
+                    {t.framerTitle}
+                  </h3>
+                  <p className="text-sm text-gray-300 leading-relaxed font-[family-name:var(--font-ibm-plex-mono)]">
+                    {t.framerDesc}
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            {/* WordPress Box */}
+            <a
+              href="/services/wordpress"
+              className="group bg-zinc-900 rounded-xl p-6 border border-[#4a388f]/20 hover:border-[#4a388f]/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,56,143,0.3)] cursor-pointer"
+            >
+              <div className="flex items-center gap-6">
+                <div className="flex-shrink-0 p-3 bg-[#4a388f]/10 rounded-lg group-hover:bg-[#4a388f]/20 transition-colors">
+                  <img src="/1wordpress.svg" alt="WordPress" className="w-12 h-12" />
+                </div>
+                <div className="flex-grow">
+                  <h3 className="text-lg md:text-xl font-semibold text-white mb-2 font-[family-name:var(--font-ibm-plex-mono)]">
+                    {t.wordpressTitle}
+                  </h3>
+                  <p className="text-sm text-gray-300 leading-relaxed font-[family-name:var(--font-ibm-plex-mono)]">
+                    {t.wordpressDesc}
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            {/* Custom Development Box */}
+            <a
+              href="/services/custom"
+              className="group bg-zinc-900 rounded-xl p-6 border border-[#4a388f]/20 hover:border-[#4a388f]/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,56,143,0.3)] cursor-pointer"
+            >
+              <div className="flex items-center gap-6">
+                <div className="flex-shrink-0 p-3 bg-[#4a388f]/10 rounded-lg group-hover:bg-[#4a388f]/20 transition-colors">
+                  <img src="/1custom.svg" alt="Custom Development" className="w-12 h-12" />
+                </div>
+                <div className="flex-grow">
+                  <h3 className="text-lg md:text-xl font-semibold text-white mb-2 font-[family-name:var(--font-ibm-plex-mono)]">
+                    {t.customTitle}
+                  </h3>
+                  <p className="text-sm text-gray-300 leading-relaxed font-[family-name:var(--font-ibm-plex-mono)]">
+                    {t.customDesc}
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            {/* WooCommerce Box */}
+            <a
+              href="/services/woocommerce"
+              className="group bg-zinc-900 rounded-xl p-6 border border-[#4a388f]/20 hover:border-[#4a388f]/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,56,143,0.3)] cursor-pointer"
+            >
+              <div className="flex items-center gap-6">
+                <div className="flex-shrink-0 p-3 bg-[#4a388f]/10 rounded-lg group-hover:bg-[#4a388f]/20 transition-colors">
+                  <img src="/1wcommerce.svg" alt="WooCommerce" className="w-12 h-12" />
+                </div>
+                <div className="flex-grow">
+                  <h3 className="text-lg md:text-xl font-semibold text-white mb-2 font-[family-name:var(--font-ibm-plex-mono)]">
+                    {t.woocommerceTitle}
+                  </h3>
+                  <p className="text-sm text-gray-300 leading-relaxed font-[family-name:var(--font-ibm-plex-mono)]">
+                    {t.woocommerceDesc}
+                  </p>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
       </section>

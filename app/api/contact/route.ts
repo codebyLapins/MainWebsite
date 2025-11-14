@@ -2,6 +2,7 @@ import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
 const resend = new Resend('re_LNaydsaE_KLcbVqWyFVoiFYjvbL3pKYon');
+const YOUR_EMAIL = 'info@codebylapins.com';
 
 export async function POST(request: Request) {
   try {
@@ -27,7 +28,7 @@ export async function POST(request: Request) {
     // Send email using Resend
     const data = await resend.emails.send({
       from: 'CodeByLapins Contact <onboarding@resend.dev>',
-      to: ['info@codebylapins.com'],
+      to: [YOUR_EMAIL],
       replyTo: email,
       subject: `New Contact Form Submission from ${name}`,
       html: `

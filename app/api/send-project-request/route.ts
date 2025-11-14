@@ -3,8 +3,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend('re_LNaydsaE_KLcbVqWyFVoiFYjvbL3pKYon');
 
-// TODO: Replace with your actual email address
-const YOUR_EMAIL = 'your-email@example.com';
+const YOUR_EMAIL = 'info@codebylapins.com';
 
 export async function POST(request: Request) {
   try {

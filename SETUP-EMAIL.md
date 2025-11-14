@@ -1,23 +1,35 @@
-# Setup Instructions for Project Request Form
+# Setup Instructions for Contact Forms
 
 ## Important: Update Your Email Address
 
-Before the project request form will work, you need to update your email address in the API route.
+Before the contact forms will work, you need to update your email address in the API routes.
 
 ### Steps:
 
-1. Open the file: `app/api/send-project-request/route.ts`
+You need to update the email address in **TWO** files:
 
+#### 1. Project Request Form
+1. Open the file: `app/api/send-project-request/route.ts`
 2. Find this line (around line 6):
    ```typescript
    const YOUR_EMAIL = 'your-email@example.com';
    ```
-
 3. Replace `'your-email@example.com'` with your actual email address, for example:
    ```typescript
    const YOUR_EMAIL = 'info@codebylapins.com';
    ```
+4. Save the file
 
+#### 2. Contact Form (Homepage)
+1. Open the file: `app/api/contact/route.ts`
+2. Find this line (around line 5):
+   ```typescript
+   const YOUR_EMAIL = 'your-email@example.com';
+   ```
+3. Replace `'your-email@example.com'` with your actual email address, for example:
+   ```typescript
+   const YOUR_EMAIL = 'info@codebylapins.com';
+   ```
 4. Save the file
 
 ## Resend API Key

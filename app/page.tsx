@@ -13,6 +13,50 @@ export default function Home() {
   const [currentLang, setCurrentLang] = useState<'en' | 'lv'>('en');
   const t = translations[currentLang];
 
+  // Contact form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
   return (
     <div className="min-h-screen bg-black text-white relative">
       {/* Dither Background for Entire Page */}
@@ -306,14 +350,18 @@ export default function Home() {
                 {t.readyToStart}
               </p>
 
-              <form className="space-y-4 md:space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">{t.name}</label>
                   <input
                     type="text"
                     id="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors text-sm md:text-base"
                     placeholder={t.yourName}
+                    required
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div>
@@ -321,8 +369,12 @@ export default function Home() {
                   <input
                     type="email"
                     id="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors text-sm md:text-base"
                     placeholder={t.yourEmail}
+                    required
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div>
@@ -330,15 +382,33 @@ export default function Home() {
                   <textarea
                     id="message"
                     rows={5}
+                    value={formData.message}
+                    onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors resize-none text-sm md:text-base"
                     placeholder={t.tellAboutProject}
+                    required
+                    disabled={isSubmitting}
                   />
                 </div>
+
+                {/* Success/Error Messages */}
+                {submitStatus === 'success' && (
+                  <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-200 text-sm">
+                    {currentLang === 'en' ? 'Message sent successfully!' : 'Ziņojums veiksmīgi nosūtīts!'}
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm">
+                    {currentLang === 'en' ? 'Failed to send message. Please try again.' : 'Neizdevās nosūtīt ziņojumu. Lūdzu, mēģiniet vēlreiz.'}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full py-3 md:py-4 bg-[#4a388f] text-white rounded-lg font-semibold hover:bg-[#9b7fd9] transition-all transform hover:scale-105 text-sm md:text-base"
+                  disabled={isSubmitting}
+                  className="w-full py-3 md:py-4 bg-[#4a388f] text-white rounded-lg font-semibold hover:bg-[#9b7fd9] transition-all transform hover:scale-105 text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
-                  {t.sendMessage}
+                  {isSubmitting ? (currentLang === 'en' ? 'Sending...' : 'Sūta...') : t.sendMessage}
                 </button>
               </form>
             </div>

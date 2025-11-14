@@ -11,7 +11,8 @@
       "Bash(move unitedkingdom.svg public )",
       "Bash(move website.svg public )",
       "Bash(move ecommerce.svg public )",
-      "Bash(move framer.svg public:*)"
+      "Bash(move framer.svg public:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd comprehensive navbar with bilingual support and redesign contact section\n\n- Create Navbar component with Services dropdown (3 sections)\n- Add language switcher with flag icons (LV/EN)\n- Implement full bilingual translation system\n- Replace VantaClouds with Dither background\n- Redesign contact section with dual-box layout (form + info)\n- Add contact information (phone, email, location) with icons\n- Change section titles to white color\n- Add logo.svg and fix logo display\n- Move SVG assets to /public folder\n- Add ScrollStack component for works section\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []

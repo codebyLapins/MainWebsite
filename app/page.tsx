@@ -194,26 +194,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="pt-0 pb-16 md:pb-24 px-4 md:px-0 relative" style={{ zIndex: 30 }}>
-        <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white relative z-10">{t.servicesTitle}</h2>
-        <div className="relative z-10">
-          <MagicBento
-            textAutoHide={true}
-            enableStars={true}
-            enableSpotlight={true}
-            enableBorderGlow={true}
-            enableTilt={true}
-            enableMagnetism={true}
-            clickEffect={true}
-            spotlightRadius={300}
-            particleCount={12}
-            glowColor="74, 56, 143"
-            language={currentLang}
-          />
-        </div>
-      </section>
-
       {/* About Section */}
       <section id="about" className="py-16 md:py-24 px-4 md:px-6 relative z-10">
         <div className="container mx-auto max-w-4xl relative z-10">
@@ -332,6 +312,26 @@ export default function Home() {
               </div>
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="pt-0 pb-16 md:pb-24 px-4 md:px-0 relative" style={{ zIndex: 30 }}>
+        <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white relative z-10">{t.servicesTitle}</h2>
+        <div className="relative z-10">
+          <MagicBento
+            textAutoHide={true}
+            enableStars={true}
+            enableSpotlight={true}
+            enableBorderGlow={true}
+            enableTilt={true}
+            enableMagnetism={true}
+            clickEffect={true}
+            spotlightRadius={300}
+            particleCount={12}
+            glowColor="74, 56, 143"
+            language={currentLang}
+          />
         </div>
       </section>
 

@@ -33,6 +33,7 @@
   border-radius: 20px;
   border: 1px solid var(--border-color);
   background: var(--background-dark);
+  font-family: var(--font-ibm-plex-mono), monospace;
   font-weight: 300;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -88,27 +89,9 @@
 
 .magic-bento-card__description {
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.5;
   opacity: 0.85;
   color: #d0c5e8;
-}
-
-.magic-bento-card--text-autohide .magic-bento-card__title,
-.magic-bento-card--text-autohide .magic-bento-card__description {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.magic-bento-card--text-autohide .magic-bento-card__title {
-  -webkit-line-clamp: var(--clamp-title);
-  line-clamp: var(--clamp-title);
-}
-
-.magic-bento-card--text-autohide .magic-bento-card__description {
-  -webkit-line-clamp: var(--clamp-desc);
-  line-clamp: var(--clamp-desc);
 }
 
 @media (max-width: 767px) {
@@ -138,20 +121,20 @@
 
   .magic-bento-card {
     aspect-ratio: auto;
-    min-height: 500px;
+    min-height: 600px;
     border-radius: 20px;
   }
 
   .magic-bento-card:nth-child(1) {
-    min-height: 500px;
-  }
-
-  .magic-bento-card:nth-child(2) {
     min-height: 600px;
   }
 
+  .magic-bento-card:nth-child(2) {
+    min-height: 750px;
+  }
+
   .magic-bento-card:nth-child(3) {
-    min-height: 500px;
+    min-height: 600px;
   }
 }
 
@@ -225,4 +208,54 @@
 .bento-section {
   position: relative;
   user-select: none;
+}
+
+/* Features list styles */
+.magic-bento-card__features {
+  margin-top: 1.5em;
+}
+
+.magic-bento-card__features-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9b7fd9;
+  margin: 0 0 0.75em 0;
+}
+
+.magic-bento-card__features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.magic-bento-card__feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #d0c5e8;
+}
+
+.magic-bento-card__checkmark {
+  flex-shrink: 0;
+  margin-top: 0.15em;
+  color: #9b7fd9;
+}
+
+@media (min-width: 768px) {
+  .magic-bento-card__features {
+    margin-top: 2em;
+  }
+
+  .magic-bento-card__features-title {
+    font-size: 15px;
+  }
+
+  .magic-bento-card__feature-item {
+    font-size: 14px;
+  }
 }

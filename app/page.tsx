@@ -209,6 +209,7 @@ export default function Home() {
             spotlightRadius={300}
             particleCount={12}
             glowColor="74, 56, 143"
+            language={currentLang}
           />
         </div>
       </section>
@@ -217,14 +218,15 @@ export default function Home() {
       <section id="about" className="py-16 md:py-24 px-4 md:px-6 relative z-10">
         <div className="container mx-auto max-w-4xl relative z-10">
           <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white">{t.aboutTitle}</h2>
-          <div className="bg-zinc-900 rounded-2xl p-6 md:p-8 border border-[#4a388f]/20">
-            <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">{t.aboutName}</h3>
-            <p className="text-base md:text-lg text-[#4a388f] mb-4 md:mb-6">{t.aboutRole}</p>
+          <div className="bg-zinc-900 rounded-2xl p-6 md:p-8 border border-[#4a388f]/20 font-[family-name:var(--font-ibm-plex-mono)]">
             <p className="text-base md:text-xl leading-relaxed text-gray-300 mb-4 md:mb-6">
               {t.aboutText1}
             </p>
-            <p className="text-base md:text-xl leading-relaxed text-gray-300">
+            <p className="text-base md:text-xl leading-relaxed text-gray-300 mb-4 md:mb-6">
               {t.aboutText2}
+            </p>
+            <p className="text-base md:text-xl leading-relaxed text-gray-300">
+              {t.aboutText3}
             </p>
           </div>
         </div>

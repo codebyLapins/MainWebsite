@@ -9,26 +9,92 @@ const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '74, 56, 143';
 const MOBILE_BREAKPOINT = 768;
 
-const cardData = [
-  {
-    color: '#1a0d2e',
-    title: 'Test Service 1',
-    description: 'Test description text goes here',
-    label: ''
+export const cardTranslations = {
+  en: {
+    servicesLabel: 'Services:',
+    cards: [
+      {
+        color: '#1a0d2e',
+        title: 'Website Development',
+        description: 'I build modern, fast, and business-focused websites tailored to your goals. I handle the entire process—from structure and design to development and ongoing support. All solutions are easy to manage, scalable, and technically future-proof.',
+        label: '',
+        features: [
+          'WordPress website development',
+          'Custom website development',
+          'ChatGPT integration'
+        ]
+      },
+      {
+        color: '#1a0d2e',
+        title: 'E-Commerce Development',
+        description: 'I create professional e-commerce solutions optimized for sales, performance, and user experience. I take care of design, usability, technical setup, integrations, and automation to ensure a smooth and reliable store operation.',
+        label: '',
+        features: [
+          'Shopify',
+          'WooCommerce',
+          'API integrations',
+          'Marketplace / Subscription / Listing solutions',
+          'Dropshipping solutions',
+          'Design creation'
+        ]
+      },
+      {
+        color: '#1a0d2e',
+        title: 'Front-End / Design',
+        description: 'I develop visually polished, fast, and fully responsive user interfaces. I offer modern front-end solutions as well as stylish, professional design tailored to brands and digital projects.',
+        label: '',
+        features: [
+          'Webflow website development',
+          'Framer website development',
+          'Vue / Next.js / React solutions',
+          'Custom logo design'
+        ]
+      }
+    ]
   },
-  {
-    color: '#1a0d2e',
-    title: 'Test Service 2',
-    description: 'Test description text goes here',
-    label: ''
-  },
-  {
-    color: '#1a0d2e',
-    title: 'Test Service 3',
-    description: 'Test description text goes here',
-    label: ''
+  lv: {
+    servicesLabel: 'Piedāvājums:',
+    cards: [
+      {
+        color: '#1a0d2e',
+        title: 'Mājaslapu izstrāde',
+        description: 'Izveidoju mūsdienīgas, ātras un uzņēmuma mērķiem pielāgotas mājaslapas. Nodrošinu pilnu ciklu — no struktūras un dizaina līdz programmēšanai un uzturēšanai. Strādāju ar risinājumiem, kas ir viegli pārvaldāmi un tehniski ilgtspējīgi.',
+        label: '',
+        features: [
+          'WordPress mājaslapu izstrāde',
+          'Custom mājaslapu izstrāde',
+          'ChatGPT integrācija'
+        ]
+      },
+      {
+        color: '#1a0d2e',
+        title: 'Internetveikalu izstrāde',
+        description: 'Veidoju profesionālus e-komercijas risinājumus, kas ir optimizēti pārdošanai un ērtai pārvaldībai. Rūpējos gan par dizainu un lietojamību, gan tehnisko uzbūvi, integrācijām un automatizāciju.',
+        label: '',
+        features: [
+          'Shopify',
+          'WooCommerce',
+          'API integrācijas',
+          'Marketplace / Subscription / Listing risinājumi',
+          'Dropshipping risinājumi',
+          'Dizaina izstrāde'
+        ]
+      },
+      {
+        color: '#1a0d2e',
+        title: 'Front-End / Dizains',
+        description: 'Izstrādāju vizuāli kvalitatīvas, ātras un responsīvas lietotāja saskarnes. Piedāvāju gan modernus front-end risinājumus, gan stilīgu, profesionālu dizainu zīmoliem un projektiem.',
+        label: '',
+        features: [
+          'Webflow mājaslapu izstrāde',
+          'Framer mājaslapu izstrāde',
+          'Vue / Next.js / React risinājumi',
+          'Custom logo'
+        ]
+      }
+    ]
   }
-];
+};
 
 const createParticleElement = (x: number, y: number, color = DEFAULT_GLOW_COLOR) => {
   const el = document.createElement('div');
@@ -491,6 +557,7 @@ interface MagicBentoProps {
   glowColor?: string;
   clickEffect?: boolean;
   enableMagnetism?: boolean;
+  language?: 'en' | 'lv';
 }
 
 const MagicBento = ({
@@ -504,11 +571,15 @@ const MagicBento = ({
   enableTilt = false,
   glowColor = DEFAULT_GLOW_COLOR,
   clickEffect = true,
-  enableMagnetism = true
+  enableMagnetism = true,
+  language = 'lv'
 }: MagicBentoProps) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const isMobile = useMobileDetection();
   const shouldDisableAnimations = disableAnimations || isMobile;
+
+  const translations = cardTranslations[language];
+  const cardData = translations.cards;
 
   return (
     <>
@@ -551,6 +622,21 @@ const MagicBento = ({
                 <div className="magic-bento-card__content">
                   <h2 className="magic-bento-card__title">{card.title}</h2>
                   <p className="magic-bento-card__description">{card.description}</p>
+                  {card.features && card.features.length > 0 && (
+                    <div className="magic-bento-card__features">
+                      <p className="magic-bento-card__features-title">{translations.servicesLabel}</p>
+                      <ul className="magic-bento-card__features-list">
+                        {card.features.map((feature, idx) => (
+                          <li key={idx} className="magic-bento-card__feature-item">
+                            <svg className="magic-bento-card__checkmark" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </ParticleCard>
             );
@@ -564,6 +650,21 @@ const MagicBento = ({
               <div className="magic-bento-card__content">
                 <h2 className="magic-bento-card__title">{card.title}</h2>
                 <p className="magic-bento-card__description">{card.description}</p>
+                {card.features && card.features.length > 0 && (
+                  <div className="magic-bento-card__features">
+                    <p className="magic-bento-card__features-title">{translations.servicesLabel}</p>
+                    <ul className="magic-bento-card__features-list">
+                      {card.features.map((feature, idx) => (
+                        <li key={idx} className="magic-bento-card__feature-item">
+                          <svg className="magic-bento-card__checkmark" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           );

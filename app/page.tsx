@@ -333,6 +333,16 @@ export default function Home() {
             language={currentLang}
           />
         </div>
+
+        {/* Start Project Button */}
+        <div className="text-center mt-12 md:mt-16 relative z-10">
+          <Link
+            href="/start-project"
+            className="inline-block px-8 py-4 bg-[#4a388f] hover:bg-[#5a48af] text-white rounded-full font-semibold transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,56,143,0.5)] font-[family-name:var(--font-ibm-plex-mono)] text-lg"
+          >
+            {currentLang === 'lv' ? 'Uzsākt Projektu' : 'Start Project'}
+          </Link>
+        </div>
       </section>
 
       {/* Works Section */}

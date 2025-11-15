@@ -600,6 +600,7 @@ export default function LiquidEther({
         this.scene!.add(this.line);
       }
 
+      // @ts-expect-error - override update signature to accept parameters
       update({ dt, isBounce, BFECC }: any) {
         this.uniforms.dt.value = dt;
         this.line!.visible = isBounce;
@@ -616,6 +617,7 @@ export default function LiquidEther({
         this.init(simProps);
       }
 
+      // @ts-expect-error - override init signature to accept parameters
       init(simProps: any) {
         super.init();
         const mouseG = new THREE.PlaneGeometry(1, 1);
@@ -635,6 +637,7 @@ export default function LiquidEther({
         this.scene!.add(this.mouse);
       }
 
+      // @ts-expect-error - override update signature to accept parameters
       update(props: any) {
         const forceX = (Mouse.diff.x / 2) * props.mouse_force;
         const forceY = (Mouse.diff.y / 2) * props.mouse_force;
@@ -678,6 +681,7 @@ export default function LiquidEther({
         this.init();
       }
 
+      // @ts-expect-error - override update signature to accept parameters
       update({ viscous, iterations, dt }: any) {
         let fbo_in: any, fbo_out: any;
         this.uniforms.v.value = viscous;
@@ -716,6 +720,7 @@ export default function LiquidEther({
         this.init();
       }
 
+      // @ts-expect-error - override update signature to accept parameters
       update({ vel }: any) {
         this.uniforms.velocity.value = vel.texture;
         super.update();
@@ -742,6 +747,7 @@ export default function LiquidEther({
         this.init();
       }
 
+      // @ts-expect-error - override update signature to accept parameters
       update({ iterations }: any) {
         let p_in: any, p_out: any;
         for (let i = 0; i < iterations; i++) {
@@ -779,6 +785,7 @@ export default function LiquidEther({
         this.init();
       }
 
+      // @ts-expect-error - override update signature to accept parameters
       update({ vel, pressure }: any) {
         this.uniforms.velocity.value = vel.texture;
         this.uniforms.pressure.value = pressure.texture;
@@ -847,7 +854,7 @@ export default function LiquidEther({
           wrapS: THREE.ClampToEdgeWrapping,
           wrapT: THREE.ClampToEdgeWrapping
         };
-        for (let key in this.fbos) {
+        for (const key in this.fbos) {
           this.fbos[key] = new THREE.WebGLRenderTarget(this.fboSize.x, this.fboSize.y, opts);
         }
       }
@@ -909,7 +916,7 @@ export default function LiquidEther({
 
       resize() {
         this.calcSize();
-        for (let key in this.fbos) {
+        for (const key in this.fbos) {
           this.fbos[key].setSize(this.fboSize.x, this.fboSize.y);
         }
       }

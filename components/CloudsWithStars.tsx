@@ -14,7 +14,7 @@ export default function CloudsWithStars({ style }: CloudsWithStarsProps) {
   const cloudsRef = useRef<any>(null);
   const starsRef = useRef<any>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
-  const animationIdRef = useRef<number>();
+  const animationIdRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (!containerRef.current) return;

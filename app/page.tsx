@@ -7,8 +7,9 @@ import FuzzyText from "@/components/FuzzyText";
 import ShinyText from "@/components/ShinyText";
 import RotatingText from "@/components/RotatingText";
 import MagicBento from "@/components/MagicBento";
-import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
 import Dither from "@/components/Dither";
+import Masonry from "@/components/Masonry";
+import { projects } from "@/data/projects";
 
 export default function Home() {
   const [currentLang, setCurrentLang] = useState<'en' | 'lv'>('en');
@@ -79,17 +80,16 @@ export default function Home() {
 
       {/* Hero Section - Full Screen */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-
         {/* Hero Content */}
         <div className="relative z-20 text-center px-6 max-w-4xl flex flex-col items-center justify-center w-full mx-auto">
           <div className="flex flex-col items-center w-full" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.6)' }}>
             <div className="w-full flex justify-center mb-3 md:mb-4">
-              <div style={{ fontSize: '3.5rem', fontWeight: 900, color: '#ffffff' }} className="md:hidden">
+              <div style={{ fontSize: '5rem', fontWeight: 900, color: '#ffffff' }} className="md:hidden">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="3.5rem"
+                  fontSize="5rem"
                   fontWeight={900}
                   color="#ffffff"
                 >
@@ -110,12 +110,12 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full flex justify-center mb-3 md:mb-4">
-              <div style={{ fontSize: '3.5rem', fontWeight: 900, color: '#ffffff' }} className="md:hidden">
+              <div style={{ fontSize: '5rem', fontWeight: 900, color: '#ffffff' }} className="md:hidden">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="3.5rem"
+                  fontSize="5rem"
                   fontWeight={900}
                   color="#ffffff"
                 >
@@ -136,12 +136,12 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full flex justify-center mb-2">
-              <div style={{ fontSize: '3.5rem', fontWeight: 900, color: '#ffffff' }} className="md:hidden">
+              <div style={{ fontSize: '5rem', fontWeight: 900, color: '#ffffff' }} className="md:hidden">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="3.5rem"
+                  fontSize="5rem"
                   fontWeight={900}
                   color="#ffffff"
                 >
@@ -317,7 +317,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="pt-0 pb-16 md:pb-24 px-4 md:px-0 relative" style={{ zIndex: 30 }}>
+      <section id="services" className="pt-0 pb-32 md:pb-48 px-4 md:px-0 relative" style={{ zIndex: 30 }}>
         <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white relative z-10">{t.servicesTitle}</h2>
         <div className="relative z-10">
           <MagicBento
@@ -347,109 +347,29 @@ export default function Home() {
       </section>
 
       {/* Works Section */}
-      <section id="works" className="py-16 md:py-24 px-4 md:px-6 relative z-10">
+      <section id="works" className="py-24 md:py-32 px-4 md:px-6 relative z-10">
         <h2 className="text-3xl md:text-5xl font-bold mb-12 md:mb-16 text-center text-white relative z-10">{t.worksTitle}</h2>
 
-        {/* Mobile: Simple stacked layout */}
-        <div className="md:hidden flex flex-col gap-6 max-w-xl mx-auto relative z-10">
-          <div className="bg-gradient-to-br from-[#4a388f] to-purple-900 rounded-2xl p-6 flex flex-col justify-between min-h-[280px]">
-            <div>
-              <h3 className="text-2xl font-bold mb-3">{t.project1}</h3>
-              <p className="text-sm text-gray-200 mb-3">
-                {t.project1Desc}
-              </p>
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">React</span>
-                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">Next.js</span>
-              </div>
-            </div>
-            <div className="text-xs text-gray-300 mt-4">{t.comingSoon}</div>
-          </div>
-
-          <div className="bg-gradient-to-br from-purple-900 to-[#4a388f] rounded-2xl p-6 flex flex-col justify-between min-h-[280px]">
-            <div>
-              <h3 className="text-2xl font-bold mb-3">{t.project2}</h3>
-              <p className="text-sm text-gray-200 mb-3">
-                {t.project2Desc}
-              </p>
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">TypeScript</span>
-                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">Tailwind</span>
-              </div>
-            </div>
-            <div className="text-xs text-gray-300 mt-4">{t.comingSoon}</div>
-          </div>
-
-          <div className="bg-gradient-to-br from-[#33496b] to-[#4a388f] rounded-2xl p-6 flex flex-col justify-between min-h-[280px]">
-            <div>
-              <h3 className="text-2xl font-bold mb-3">{t.project3}</h3>
-              <p className="text-sm text-gray-200 mb-3">
-                {t.project3Desc}
-              </p>
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">Mobile</span>
-                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs">Web</span>
-              </div>
-            </div>
-            <div className="text-xs text-gray-300 mt-4">{t.comingSoon}</div>
-          </div>
-        </div>
-
-        {/* Desktop: ScrollStack layout */}
-        <div className="hidden md:block max-w-5xl mx-auto relative z-10" style={{ isolation: 'isolate' }}>
-          <ScrollStack
-            itemDistance={120}
-            itemScale={0.03}
-            itemStackDistance={25}
-            baseScale={0.85}
-            useWindowScroll={true}
-          >
-            <ScrollStackItem>
-              <div className="bg-gradient-to-br from-[#4a388f] to-purple-900 h-full rounded-2xl p-6 md:p-8 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">{t.project1}</h3>
-                  <p className="text-sm md:text-lg text-gray-200 mb-3 md:mb-4">
-                    {t.project1Desc}
-                  </p>
-                  <div className="flex gap-2 flex-wrap">
-                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">React</span>
-                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">Next.js</span>
-                  </div>
-                </div>
-                <div className="text-xs md:text-sm text-gray-300 mt-4">{t.comingSoon}</div>
-              </div>
-            </ScrollStackItem>
-            <ScrollStackItem>
-              <div className="bg-gradient-to-br from-purple-900 to-[#4a388f] h-full rounded-2xl p-6 md:p-8 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">{t.project2}</h3>
-                  <p className="text-sm md:text-lg text-gray-200 mb-3 md:mb-4">
-                    {t.project2Desc}
-                  </p>
-                  <div className="flex gap-2 flex-wrap">
-                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">TypeScript</span>
-                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">Tailwind</span>
-                  </div>
-                </div>
-                <div className="text-xs md:text-sm text-gray-300 mt-4">{t.comingSoon}</div>
-              </div>
-            </ScrollStackItem>
-            <ScrollStackItem>
-              <div className="bg-gradient-to-br from-[#33496b] to-[#4a388f] h-full rounded-2xl p-6 md:p-8 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">{t.project3}</h3>
-                  <p className="text-sm md:text-lg text-gray-200 mb-3 md:mb-4">
-                    {t.project3Desc}
-                  </p>
-                  <div className="flex gap-2 flex-wrap">
-                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">Mobile</span>
-                    <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs md:text-sm">Web</span>
-                  </div>
-                </div>
-                <div className="text-xs md:text-sm text-gray-300 mt-4">{t.comingSoon}</div>
-              </div>
-            </ScrollStackItem>
-          </ScrollStack>
+        <div className="container mx-auto max-w-7xl relative z-10 min-h-[500px]">
+          <Masonry
+            items={projects.map(project => ({
+              id: project.id,
+              img: project.thumbnail,
+              url: `/works/${project.slug}`,
+              height: project.thumbnailHeight,
+              titleEn: project.titleEn,
+              titleLv: project.titleLv
+            }))}
+            ease="power3.out"
+            duration={0.6}
+            stagger={0.05}
+            animateFrom="bottom"
+            scaleOnHover={true}
+            hoverScale={0.98}
+            blurToFocus={true}
+            colorShiftOnHover={false}
+            currentLang={currentLang}
+          />
         </div>
       </section>
 

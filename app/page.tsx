@@ -456,51 +456,51 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-16 md:py-24 px-4 md:px-6 relative z-10">
         <div className="container mx-auto max-w-6xl relative z-10">
-          <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white">{t.getInTouchTitle}</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white font-[family-name:var(--font-ibm-plex-mono)]">{t.getInTouchTitle}</h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             {/* Contact Form Box */}
             <div className="bg-zinc-950 rounded-2xl p-6 md:p-8 border border-[#4a388f]/20">
-              <h3 className="text-xl md:text-2xl font-semibold text-white mb-4 md:mb-6">{t.sendMessage}</h3>
-              <p className="text-sm md:text-base text-gray-300 mb-6 md:mb-8">
+              <h3 className="text-xl md:text-2xl font-semibold text-white mb-4 md:mb-6 font-[family-name:var(--font-ibm-plex-mono)]">{t.sendMessage}</h3>
+              <p className="text-sm md:text-base text-gray-300 mb-6 md:mb-8 font-[family-name:var(--font-ibm-plex-mono)]">
                 {t.readyToStart}
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">{t.name}</label>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2 font-[family-name:var(--font-ibm-plex-mono)]">{t.name}</label>
                   <input
                     type="text"
                     id="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors text-sm md:text-base"
+                    className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors text-sm md:text-base font-[family-name:var(--font-ibm-plex-mono)]"
                     placeholder={t.yourName}
                     required
                     disabled={isSubmitting}
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">{t.email}</label>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2 font-[family-name:var(--font-ibm-plex-mono)]">{t.email}</label>
                   <input
                     type="email"
                     id="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors text-sm md:text-base"
+                    className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors text-sm md:text-base font-[family-name:var(--font-ibm-plex-mono)]"
                     placeholder={t.yourEmail}
                     required
                     disabled={isSubmitting}
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">{t.message}</label>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2 font-[family-name:var(--font-ibm-plex-mono)]">{t.message}</label>
                   <textarea
                     id="message"
                     rows={5}
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors resize-none text-sm md:text-base"
+                    className="w-full px-4 py-3 bg-zinc-900 border border-[#4a388f]/20 rounded-lg focus:outline-none focus:border-[#4a388f] transition-colors resize-none text-sm md:text-base font-[family-name:var(--font-ibm-plex-mono)]"
                     placeholder={t.tellAboutProject}
                     required
                     disabled={isSubmitting}
@@ -509,12 +509,12 @@ export default function Home() {
 
                 {/* Success/Error Messages */}
                 {submitStatus === 'success' && (
-                  <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-200 text-sm">
+                  <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-200 text-sm font-[family-name:var(--font-ibm-plex-mono)]">
                     {currentLang === 'en' ? 'Message sent successfully!' : 'Ziņojums veiksmīgi nosūtīts!'}
                   </div>
                 )}
                 {submitStatus === 'error' && (
-                  <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm">
+                  <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm font-[family-name:var(--font-ibm-plex-mono)]">
                     {currentLang === 'en' ? 'Failed to send message. Please try again.' : 'Neizdevās nosūtīt ziņojumu. Lūdzu, mēģiniet vēlreiz.'}
                   </div>
                 )}
@@ -522,7 +522,7 @@ export default function Home() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 md:py-4 bg-[#4a388f] text-white rounded-lg font-semibold hover:bg-[#9b7fd9] transition-all transform hover:scale-105 text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="w-full py-3 md:py-4 bg-[#4a388f] text-white rounded-lg font-semibold hover:bg-[#5a48af] transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,56,143,0.5)] text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed font-[family-name:var(--font-ibm-plex-mono)]"
                 >
                   {isSubmitting ? (currentLang === 'en' ? 'Sending...' : 'Sūta...') : t.sendMessage}
                 </button>
@@ -531,10 +531,7 @@ export default function Home() {
 
             {/* Contact Information Box */}
             <div className="bg-zinc-950 rounded-2xl p-6 md:p-8 border border-[#4a388f]/20 flex flex-col">
-              <h3 className="text-xl md:text-2xl font-semibold text-white mb-4 md:mb-6">{t.getInTouchTitle}</h3>
-              <p className="text-sm md:text-base text-gray-300 mb-6 md:mb-8">
-                {t.readyToStart}
-              </p>
+              <h3 className="text-xl md:text-2xl font-semibold text-white mb-4 md:mb-6 font-[family-name:var(--font-ibm-plex-mono)]">{t.getInTouchTitle}</h3>
 
               <div className="space-y-6 flex-grow">
                 {/* Phone */}
@@ -543,9 +540,9 @@ export default function Home() {
                     <svg className="w-5 h-5 text-[#4a388f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
-                    <p className="text-sm text-[#4a388f] font-semibold">{t.phone}</p>
+                    <p className="text-sm text-[#4a388f] font-semibold font-[family-name:var(--font-ibm-plex-mono)]">{t.phone}</p>
                   </div>
-                  <a href="tel:+37124928643" className="text-white hover:text-[#9b7fd9] transition-colors text-base md:text-lg ml-8">+371 24928643</a>
+                  <a href="tel:+37124928643" className="text-white hover:text-[#9b7fd9] transition-colors text-base md:text-lg ml-8 font-[family-name:var(--font-ibm-plex-mono)]">+371 24928643</a>
                 </div>
 
                 {/* Email */}
@@ -554,9 +551,9 @@ export default function Home() {
                     <svg className="w-5 h-5 text-[#4a388f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <p className="text-sm text-[#4a388f] font-semibold">{t.email}</p>
+                    <p className="text-sm text-[#4a388f] font-semibold font-[family-name:var(--font-ibm-plex-mono)]">{t.email}</p>
                   </div>
-                  <a href="mailto:info@codebylapins.com" className="text-white hover:text-[#9b7fd9] transition-colors text-base md:text-lg ml-8 break-all">info@codebylapins.com</a>
+                  <a href="mailto:info@codebylapins.com" className="text-white hover:text-[#9b7fd9] transition-colors text-base md:text-lg ml-8 break-all font-[family-name:var(--font-ibm-plex-mono)]">info@codebylapins.com</a>
                 </div>
 
                 {/* Location */}
@@ -566,22 +563,22 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <p className="text-sm text-[#4a388f] font-semibold">{t.location}</p>
+                    <p className="text-sm text-[#4a388f] font-semibold font-[family-name:var(--font-ibm-plex-mono)]">{t.location}</p>
                   </div>
-                  <p className="text-white text-base md:text-lg ml-8">{t.locationValue}</p>
+                  <p className="text-white text-base md:text-lg ml-8 font-[family-name:var(--font-ibm-plex-mono)]">{t.locationValue}</p>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Start Project Button */}
-          <div className="text-center mt-12 md:mt-16 relative z-10">
-            <Link
-              href="/start-project"
-              className="inline-block px-8 py-4 bg-[#4a388f] hover:bg-[#5a48af] text-white rounded-full font-semibold transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,56,143,0.5)] font-[family-name:var(--font-ibm-plex-mono)] text-lg"
-            >
-              {currentLang === 'lv' ? 'Uzsākt Projektu' : 'Start Project'}
-            </Link>
+              {/* Start Project Button */}
+              <div className="mt-6 md:mt-8">
+                <Link
+                  href="/start-project"
+                  className="block w-full py-3 md:py-4 bg-[#4a388f] hover:bg-[#5a48af] text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,56,143,0.5)] font-[family-name:var(--font-ibm-plex-mono)] text-base md:text-lg text-center"
+                >
+                  {currentLang === 'lv' ? 'Uzsākt Projektu' : 'Start Project'}
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

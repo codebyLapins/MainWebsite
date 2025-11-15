@@ -13,8 +13,8 @@ const translations = {
     section1: '1. Company Information',
     companyName: 'Company Name',
     companyNamePlaceholder: 'Your company name',
-    contactPerson: 'Contact Person (Name & Role)',
-    contactPersonPlaceholder: 'John Doe, CEO',
+    contactPerson: 'Contact Person (Name)',
+    contactPersonPlaceholder: 'John Doe',
     email: 'Email',
     emailPlaceholder: 'your@email.com',
     phone: 'Phone Number',
@@ -96,11 +96,10 @@ const translations = {
     contentNo: 'No',
     contentPartially: 'Partially',
     contentNeedHelp: 'Need copywriting help',
-    provideImages: 'Will You Provide Images / Portfolio Materials?',
+    provideImages: 'Will You Provide Images for the Website?',
     imagesYes: 'Yes',
     imagesNo: 'No',
-    imagesNeedPhoto: 'Need photography',
-    imagesNeedProduct: 'Need product photos',
+    imagesNotSure: 'Not sure yet',
 
     // Section 6
     section6: '6. Technical',
@@ -142,11 +141,12 @@ const translations = {
     startDate: 'Preferred Project Start Date',
     launchDate: 'Preferred Launch / Deadline',
     budget: 'Estimated Budget',
-    budget500: '< 500€',
-    budget1000: '500–1000€',
-    budget2000: '1000–2000€',
-    budget4000: '2000–4000€',
-    budget4000plus: '4000+',
+    budget100: '~100€',
+    budget200: '100–200€',
+    budget400: '200–400€',
+    budget600: '400–600€',
+    budget1300: '1000–1300€',
+    budget2000plus: '2000+',
     budgetQuote: 'I would like a custom quote',
 
     // Section 9
@@ -190,8 +190,8 @@ const translations = {
     section1: '1. Uzņēmuma Informācija',
     companyName: 'Uzņēmuma Nosaukums',
     companyNamePlaceholder: 'Jūsu uzņēmuma nosaukums',
-    contactPerson: 'Kontaktpersona (Vārds un Amats)',
-    contactPersonPlaceholder: 'Jānis Bērziņš, Direktors',
+    contactPerson: 'Kontaktpersona (Vārds)',
+    contactPersonPlaceholder: 'Jānis Bērziņš',
     email: 'E-pasts',
     emailPlaceholder: 'jusu@epasts.lv',
     phone: 'Tālruņa Numurs',
@@ -273,11 +273,10 @@ const translations = {
     contentNo: 'Nē',
     contentPartially: 'Daļēji',
     contentNeedHelp: 'Nepieciešama palīdzība ar tekstu rakstīšanu',
-    provideImages: 'Vai Jūs Nodrošināsiet Attēlus / Portfolio Materiālus?',
+    provideImages: 'Vai Jūs Nodrošināsiet Attēlus Mājaslapai?',
     imagesYes: 'Jā',
     imagesNo: 'Nē',
-    imagesNeedPhoto: 'Nepieciešama fotogrāfija',
-    imagesNeedProduct: 'Nepieciešamas produktu fotogrāfijas',
+    imagesNotSure: 'Vēl nezinu',
 
     // Section 6
     section6: '6. Tehniskā Daļa',
@@ -319,11 +318,12 @@ const translations = {
     startDate: 'Vēlamais Projekta Sākuma Datums',
     launchDate: 'Vēlamais Palaišanas / Termiņa Datums',
     budget: 'Paredzamais Budžets',
-    budget500: '< 500€',
-    budget1000: '500–1000€',
-    budget2000: '1000–2000€',
-    budget4000: '2000–4000€',
-    budget4000plus: '4000+',
+    budget100: '~100€',
+    budget200: '100–200€',
+    budget400: '200–400€',
+    budget600: '400–600€',
+    budget1300: '1000–1300€',
+    budget2000plus: '2000+',
     budgetQuote: 'Vēlos saņemt individuālu piedāvājumu',
 
     // Section 9
@@ -589,11 +589,10 @@ export default function StartProjectPage() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2 font-[family-name:var(--font-ibm-plex-mono)]">
-                    {t.companyName} <span className="text-red-500">*</span>
+                    {t.companyName} <span className="text-gray-500 text-xs">({t.optional})</span>
                   </label>
                   <input
                     type="text"
-                    required
                     value={formData.companyName}
                     onChange={(e) => setFormData({...formData, companyName: e.target.value})}
                     placeholder={t.companyNamePlaceholder}
@@ -693,10 +692,9 @@ export default function StartProjectPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2 font-[family-name:var(--font-ibm-plex-mono)]">
-                    {t.targetAudience} <span className="text-red-500">*</span>
+                    {t.targetAudience} <span className="text-gray-500 text-xs">({t.optional})</span>
                   </label>
                   <textarea
-                    required
                     value={formData.targetAudience}
                     onChange={(e) => setFormData({...formData, targetAudience: e.target.value})}
                     placeholder={t.targetAudiencePlaceholder}
@@ -998,7 +996,7 @@ export default function StartProjectPage() {
                     {t.provideImages} <span className="text-red-500">*</span>
                   </label>
                   <div className="space-y-2">
-                    {['imagesYes', 'imagesNo', 'imagesNeedPhoto', 'imagesNeedProduct'].map((key) => (
+                    {['imagesYes', 'imagesNo', 'imagesNotSure'].map((key) => (
                       <label key={key} className="flex items-center gap-3 cursor-pointer">
                         <input
                           type="radio"
@@ -1186,7 +1184,7 @@ export default function StartProjectPage() {
                     {t.budget} <span className="text-red-500">*</span>
                   </label>
                   <div className="space-y-2">
-                    {['budget500', 'budget1000', 'budget2000', 'budget4000', 'budget4000plus', 'budgetQuote'].map((key) => (
+                    {['budget100', 'budget200', 'budget400', 'budget600', 'budget1300', 'budget2000plus', 'budgetQuote'].map((key) => (
                       <label key={key} className="flex items-center gap-3 cursor-pointer">
                         <input
                           type="radio"

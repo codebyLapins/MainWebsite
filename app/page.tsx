@@ -166,7 +166,7 @@ export default function Home() {
 
           <div className="mt-6 md:mt-8 w-full flex justify-center">
             <RotatingText
-              texts={[t.websites, t.webApps, t.mobileApps, t.ecommerceShort]}
+              texts={[t.websites, t.webApps, t.ecommerceShort]}
               mainClassName="px-5 py-2.5 bg-[#33496b] text-white overflow-hidden rounded-lg text-base md:text-2xl font-semibold shadow-lg"
               staggerFrom="last"
               initial={{ y: "100%" }}

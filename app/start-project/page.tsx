@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -365,8 +365,16 @@ export default function StartProjectPage() {
   const { currentLang: lang, setLanguage: setLang } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [mounted, setMounted] = useState(false);
 
-  const t = translations[lang];
+  // Wait for component to mount to avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Use default language for SSR, then switch to saved language after mount
+  const displayLang = mounted ? lang : 'en';
+  const t = translations[displayLang];
 
   const [formData, setFormData] = useState({
     companyName: '',
@@ -553,13 +561,13 @@ export default function StartProjectPage() {
           <div className="flex gap-2">
             <button
               onClick={() => setLang('lv')}
-              className={`px-3 py-1 rounded ${lang === 'lv' ? 'bg-[#4a388f] text-white' : 'text-gray-400 hover:text-white'}`}
+              className={`px-3 py-1 rounded ${displayLang === 'lv' ? 'bg-[#4a388f] text-white' : 'text-gray-400 hover:text-white'}`}
             >
               LV
             </button>
             <button
               onClick={() => setLang('en')}
-              className={`px-3 py-1 rounded ${lang === 'en' ? 'bg-[#4a388f] text-white' : 'text-gray-400 hover:text-white'}`}
+              className={`px-3 py-1 rounded ${displayLang === 'en' ? 'bg-[#4a388f] text-white' : 'text-gray-400 hover:text-white'}`}
             >
               EN
             </button>

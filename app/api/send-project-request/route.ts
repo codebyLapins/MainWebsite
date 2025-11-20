@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { projectRequestRateLimiter, getClientIp } from '@/lib/rateLimit';
 
 const resend = new Resend('re_LNaydsaE_KLcbVqWyFVoiFYjvbL3pKYon');
 
@@ -7,6 +8,25 @@ const YOUR_EMAIL = 'info@codebylapins.com';
 
 export async function POST(request: Request) {
   try {
+    // Check rate limit
+    const clientIp = getClientIp(request);
+    const rateLimitResult = projectRequestRateLimiter.check(clientIp);
+
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json(
+        {
+          error: 'Too many requests. Please try again later.',
+          retryAfter: rateLimitResult.retryAfter
+        },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(rateLimitResult.retryAfter || 300)
+          }
+        }
+      );
+    }
+
     const formData = await request.json();
 
     // Build email HTML content

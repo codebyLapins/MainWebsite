@@ -72,7 +72,16 @@ export default function ClientProjectPage({ project }: ClientProjectPageProps) {
             <p className="text-xl font-semibold font-[family-name:var(--font-ibm-plex-mono)]">{project.year}</p>
           </div>
 
-          <div className="bg-zinc-950 rounded-lg p-6 border border-[#4a388f]/20">
+          {project.domain && (
+            <div className="bg-zinc-950 rounded-lg p-6 border border-[#4a388f]/20">
+              <h3 className="text-sm text-gray-400 mb-2 font-[family-name:var(--font-ibm-plex-mono)]">
+                {currentLang === 'en' ? 'Domain' : 'Domēns'}
+              </h3>
+              <p className="text-xl font-semibold font-[family-name:var(--font-ibm-plex-mono)]">{project.domain}</p>
+            </div>
+          )}
+
+          <div className="bg-zinc-950 rounded-lg p-6 border border-[#4a388f]/20 md:col-span-2">
             <h3 className="text-sm text-gray-400 mb-2 font-[family-name:var(--font-ibm-plex-mono)]">
               {currentLang === 'en' ? 'Technologies' : 'Tehnoloģijas'}
             </h3>

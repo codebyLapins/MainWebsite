@@ -16,6 +16,7 @@ export interface Project {
   year: string;
   client?: string;
   url?: string;
+  domain?: string;
 }
 
 export const projects: Project[] = [
@@ -40,7 +41,8 @@ export const projects: Project[] = [
     categoryEn: 'Showcase',
     categoryLv: 'Demonstrējums',
     tags: ['Blender (3D)', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'GLSL', 'React', 'Three.js', 'Webpack'],
-    year: '2024-2025'
+    year: '2024-2025',
+    domain: 'lapins.dev'
   },
 ];
 

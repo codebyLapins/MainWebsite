@@ -39,7 +39,7 @@ export const projects: Project[] = [
     ],
     category: 'Showcase',
     categoryEn: 'Showcase',
-    categoryLv: 'Demonstrējums',
+    categoryLv: 'Piemērs',
     tags: ['Blender (3D)', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'GLSL', 'React', 'Three.js', 'Webpack'],
     year: '2024-2025',
     domain: 'lapins.dev'

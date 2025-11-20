@@ -42,7 +42,7 @@ export const projects: Project[] = [
     categoryLv: 'Demonstrējums',
     tags: ['Blender (3D)', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'GLSL', 'React', 'Three.js', 'Webpack'],
     year: '2024-2025',
-    domain: 'codebylapins.com'
+    domain: 'lapins.dev'
   },
 ];
 

@@ -2,13 +2,13 @@ export default function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": "lapins.dev",
+    "name": "CodeByLapins",
     "description": "Profesionāla mājaslapu izstrāde un dizains. Specializējos e-komercijas platformās, uzņēmumu vietnēs un pielāgotās digitālās risinājumos.",
-    "url": "https://lapins.dev",
-    "logo": "https://lapins.dev/logo.svg",
-    "image": "https://lapins.dev/og-image.png",
+    "url": "https://codebylapins.com",
+    "logo": "https://codebylapins.com/logo.svg",
+    "image": "https://codebylapins.com/og-image.png",
     "telephone": "+371-XXXXXXXX",
-    "email": "contact@lapins.dev",
+    "email": "contact@codebylapins.com",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "LV",

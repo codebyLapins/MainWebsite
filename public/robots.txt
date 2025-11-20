@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://lapins.dev/sitemap.xml
+Sitemap: https://codebylapins.com/sitemap.xml

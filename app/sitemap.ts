@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { projects } from '@/data/projects'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://lapins.dev'
+  const baseUrl = 'https://codebylapins.com'
 
   // Main pages
   const routes = [

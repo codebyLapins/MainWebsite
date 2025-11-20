@@ -20,12 +20,12 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mājaslapu izstrāde | Web Development | lapins.dev",
+  title: "Mājaslapu izstrāde | Web Development | CodeByLapins",
   description: "Profesionāla mājaslapu izstrāde un dizains. Izveidoju kvalitatīvas, modernās digitālās lapas uzņēmumiem. Specializējos e-komercijas platformās, uzņēmumu vietnēs un pielāgotās digitālās risinājumos. Professional web development and design services.",
-  keywords: ["mājaslapu izstrāde", "web development", "website design", "e-commerce", "Shopify", "WordPress", "Framer", "React", "Next.js", "Latvija", "Latvia"],
-  authors: [{ name: "lapins.dev" }],
-  creator: "lapins.dev",
-  publisher: "lapins.dev",
+  keywords: ["mājaslapu izstrāde", "web development", "website design", "e-commerce", "Shopify", "WordPress", "Framer", "React", "Next.js", "Latvija", "Latvia", "CodeByLapins"],
+  authors: [{ name: "CodeByLapins" }],
+  creator: "CodeByLapins",
+  publisher: "CodeByLapins",
   robots: {
     index: true,
     follow: true,
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'lv_LV',
     alternateLocale: ['en_US'],
-    url: 'https://lapins.dev',
-    siteName: 'lapins.dev',
+    url: 'https://codebylapins.com',
+    siteName: 'CodeByLapins',
     title: 'Mājaslapu izstrāde | Professional Web Development',
     description: 'Profesionāla mājaslapu izstrāde un dizains. Specializējos e-komercijas platformās, uzņēmumu vietnēs un pielāgotās digitālās risinājumos.',
     images: [
@@ -50,13 +50,13 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'lapins.dev - Web Development',
+        alt: 'CodeByLapins - Web Development',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mājaslapu izstrāde | lapins.dev',
+    title: 'Mājaslapu izstrāde | CodeByLapins',
     description: 'Profesionāla mājaslapu izstrāde un dizains. Specializējos e-komercijas platformās un pielāgotās digitālās risinājumos.',
     images: ['/og-image.png'],
   },
@@ -79,7 +79,7 @@ export default function RootLayout({
   return (
     <html lang="lv">
       <head>
-        <link rel="canonical" href="https://lapins.dev" />
+        <link rel="canonical" href="https://codebylapins.com" />
         <meta name="google-site-verification" content="" />
         <StructuredData />
       </head>

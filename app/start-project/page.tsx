@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 const translations = {
   en: {
@@ -361,7 +362,7 @@ const translations = {
 };
 
 export default function StartProjectPage() {
-  const [lang, setLang] = useState<'en' | 'lv'>('lv');
+  const { currentLang: lang, setLanguage: setLang } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 

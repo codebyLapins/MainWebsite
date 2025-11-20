@@ -12,27 +12,23 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [currentLang, setCurrentLang] = useState<Language>('en');
-  const [mounted, setMounted] = useState(false);
-
-  // Load language from localStorage on mount
-  useEffect(() => {
-    setMounted(true);
-    const savedLang = localStorage.getItem('language') as Language;
-    if (savedLang === 'en' || savedLang === 'lv') {
-      setCurrentLang(savedLang);
+  // Initialize with a function that reads from localStorage if available
+  const [currentLang, setCurrentLang] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const savedLang = localStorage.getItem('language') as Language;
+      if (savedLang === 'en' || savedLang === 'lv') {
+        return savedLang;
+      }
     }
-  }, []);
+    return 'en';
+  });
 
   const setLanguage = (lang: Language) => {
     setCurrentLang(lang);
-    localStorage.setItem('language', lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('language', lang);
+    }
   };
-
-  // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <LanguageContext.Provider value={{ currentLang, setLanguage }}>

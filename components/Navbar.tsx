@@ -93,9 +93,9 @@ export const translations = {
     brandIdentity: "Dizaina un zīmola identitātes izstrāde",
     frontEnd: "Front-End dizains (UX/UI)",
     // Hero section
-    beautiful: "Skaisti.",
-    functional: "Funkcionāli.",
-    yours: "Tavs.",
+    beautiful: "Skaista.",
+    functional: "Funkcionāla.",
+    yours: "Tava.",
     websites: "Mājaslapas",
     webApps: "Tīmekļa lietotnes",
     mobileApps: "Mobilās lietotnes",

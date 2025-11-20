@@ -4,11 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import StarBorder from "@/components/StarBorder";
 import BlurText from "@/components/BlurText";
-
-interface NavbarProps {
-  currentLang: 'en' | 'lv';
-  onLanguageChange: (lang: 'en' | 'lv') => void;
-}
+import { useLanguage } from "@/context/LanguageContext";
 
 export const translations = {
   en: {
@@ -153,7 +149,8 @@ export const translations = {
   }
 };
 
-export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
+export default function Navbar() {
+  const { currentLang, setLanguage } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -319,7 +316,7 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
                         <button
                           key={lang.code}
                           onClick={() => {
-                            onLanguageChange(lang.code);
+                            setLanguage(lang.code);
                             setLanguageDropdownOpen(false);
                           }}
                           className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-[#4a388f]/20 transition-colors ${
@@ -439,7 +436,7 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
                     <button
                       key={lang.code}
                       onClick={() => {
-                        onLanguageChange(lang.code);
+                        setLanguage(lang.code);
                         setMobileMenuOpen(false);
                       }}
                       className={`w-full flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#4a388f]/20 transition-colors ${

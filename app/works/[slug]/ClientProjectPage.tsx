@@ -1,17 +1,17 @@
 'use client';
 
-import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Dither from "@/components/Dither";
 import { Project } from "@/data/projects";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ClientProjectPageProps {
   project: Project;
 }
 
 export default function ClientProjectPage({ project }: ClientProjectPageProps) {
-  const [currentLang, setCurrentLang] = useState<'en' | 'lv'>('en');
+  const { currentLang } = useLanguage();
 
   const title = currentLang === 'lv' ? project.titleLv : project.titleEn;
   const description = currentLang === 'lv' ? project.descriptionLv : project.descriptionEn;
@@ -34,7 +34,7 @@ export default function ClientProjectPage({ project }: ClientProjectPageProps) {
       </div>
 
       {/* Navigation */}
-      <Navbar currentLang={currentLang} onLanguageChange={setCurrentLang} />
+      <Navbar />
 
       {/* Back Button */}
       <div className="relative z-10 container mx-auto max-w-6xl px-4 md:px-6 pt-32 pb-8">

@@ -10,9 +10,10 @@ import MagicBento from "@/components/MagicBento";
 import Dither from "@/components/Dither";
 import Masonry from "@/components/Masonry";
 import { projects } from "@/data/projects";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
-  const [currentLang, setCurrentLang] = useState<'en' | 'lv'>('en');
+  const { currentLang } = useLanguage();
   const t = translations[currentLang];
 
   // Contact form state
@@ -76,7 +77,7 @@ export default function Home() {
       </div>
 
       {/* Navigation */}
-      <Navbar currentLang={currentLang} onLanguageChange={setCurrentLang} />
+      <Navbar />
 
       {/* Hero Section - Full Screen */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">

@@ -85,12 +85,24 @@ export default function Home() {
         <div className="relative z-20 text-center px-6 max-w-4xl flex flex-col items-center justify-center w-full mx-auto">
           <div className="flex flex-col items-center w-full" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.6)' }}>
             <div className="w-full flex justify-center mb-2 sm:mb-3 md:mb-4">
-              <div className="md:hidden font-black text-white" style={{ fontSize: 'clamp(3.75rem, 14vw, 5.5rem)' }}>
+              <div className="sm:hidden font-black text-white">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="clamp(3.75rem, 14vw, 5.5rem)"
+                  fontSize="3.75rem"
+                  fontWeight={900}
+                  color="#ffffff"
+                >
+                  {t.beautiful}
+                </FuzzyText>
+              </div>
+              <div className="hidden sm:block md:hidden font-black text-white">
+                <FuzzyText
+                  baseIntensity={0.13}
+                  hoverIntensity={0.72}
+                  enableHover={false}
+                  fontSize="5rem"
                   fontWeight={900}
                   color="#ffffff"
                 >
@@ -111,12 +123,24 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full flex justify-center mb-2 sm:mb-3 md:mb-4">
-              <div className="md:hidden font-black text-white" style={{ fontSize: 'clamp(3.75rem, 14vw, 5.5rem)' }}>
+              <div className="sm:hidden font-black text-white">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="clamp(3.75rem, 14vw, 5.5rem)"
+                  fontSize="3.75rem"
+                  fontWeight={900}
+                  color="#ffffff"
+                >
+                  {t.functional}
+                </FuzzyText>
+              </div>
+              <div className="hidden sm:block md:hidden font-black text-white">
+                <FuzzyText
+                  baseIntensity={0.13}
+                  hoverIntensity={0.72}
+                  enableHover={false}
+                  fontSize="5rem"
                   fontWeight={900}
                   color="#ffffff"
                 >
@@ -137,12 +161,24 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full flex justify-center mb-2">
-              <div className="md:hidden font-black text-white" style={{ fontSize: 'clamp(3.75rem, 14vw, 5.5rem)' }}>
+              <div className="sm:hidden font-black text-white">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="clamp(3.75rem, 14vw, 5.5rem)"
+                  fontSize="3.75rem"
+                  fontWeight={900}
+                  color="#ffffff"
+                >
+                  {t.yours}
+                </FuzzyText>
+              </div>
+              <div className="hidden sm:block md:hidden font-black text-white">
+                <FuzzyText
+                  baseIntensity={0.13}
+                  hoverIntensity={0.72}
+                  enableHover={false}
+                  fontSize="5rem"
                   fontWeight={900}
                   color="#ffffff"
                 >

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { Menu, X, ChevronDown, ChevronRight, ArrowLeft } from 'lucide-react';
 import StarBorder from "@/components/StarBorder";
 import BlurText from "@/components/BlurText";
 import { useLanguage } from "@/context/LanguageContext";
@@ -22,6 +23,7 @@ export const translations = {
     design: "Design & Graphics",
     brandIdentity: "Design & brand identity development",
     frontEnd: "Front-End design (UX/UI)",
+    language: "Language",
     // Hero section
     beautiful: "Beautiful.",
     functional: "Functional.",
@@ -91,6 +93,7 @@ export const translations = {
     design: "Dizains un grafika",
     brandIdentity: "Dizaina un zīmola identitātes izstrāde",
     frontEnd: "Front-End dizains (UX/UI)",
+    language: "Valoda",
     // Hero section
     beautiful: "Skaista.",
     functional: "Funkcionāla.",
@@ -152,7 +155,6 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
   const t = translations[currentLang];
 
   const languages = [
@@ -162,301 +164,323 @@ export default function Navbar() {
 
   const currentLanguage = languages.find(lang => lang.code === currentLang)!;
 
+  const services = [
+    {
+      category: t.website,
+      icon: '/website.svg',
+      items: [
+        { name: t.websiteDev, href: '/services/website-development' },
+        { name: t.websiteMaintenance, href: '/services/website-maintenance' },
+      ],
+    },
+    {
+      category: t.ecommerce,
+      icon: '/ecommerce.svg',
+      items: [
+        { name: t.onlineStore, href: '/services/online-store' },
+        { name: t.shopifyStore, href: '/services/shopify' },
+      ],
+    },
+    {
+      category: t.design,
+      icon: '/framer.svg',
+      items: [
+        { name: t.brandIdentity, href: '/services/branding' },
+        { name: t.frontEnd, href: '/services/ux-ui-design' },
+      ],
+    },
+  ];
+
+  // Close services panel when main menu closes
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      setMobileServicesOpen(false);
+    }
+  }, [mobileMenuOpen]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
+
+  const handleNavClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
-      <div className="flex justify-center mt-2 md:mt-8 px-3 md:px-4">
-        <StarBorder
-          as="div"
-          color="#ff00ff"
-          speed="6s"
-          thickness={1}
-          className="bg-[#1a1a2e]/80 backdrop-blur-md rounded-full py-5 md:py-6 shadow-[0_0_30px_rgba(138,43,226,0.4)] border border-[#4a388f]/30 relative"
-        >
-          <div className="flex items-center justify-between w-full px-6 md:px-12 gap-8 md:gap-16">
-            <div className="flex items-center gap-2 md:gap-3">
-              <Image
-                src="/logo.svg"
-                alt="CodeByLapins"
-                width={32}
-                height={32}
-                className="w-8 h-8 md:w-10 md:h-10 rounded-lg object-contain"
-                style={{ imageRendering: 'crisp-edges' }}
-                priority
-              />
-              <BlurText
-                text="CodeByLapins"
-                delay={50}
-                animateBy="characters"
-                direction="top"
-                className="text-sm md:text-xl font-semibold text-white"
-              />
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex gap-8 md:gap-12 items-center text-white text-sm md:text-base">
-              <a href="#home" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">{t.home}</a>
-
-              {/* Services Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setServicesDropdownOpen(true)}
-                onMouseLeave={() => setServicesDropdownOpen(false)}
-              >
-                <button className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium flex items-center gap-1">
-                  {t.services}
-                  <svg className={`w-4 h-4 transition-transform ${servicesDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-
-                {servicesDropdownOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4">
-                    {/* Invisible hover area */}
-                    <div className="absolute top-0 left-0 right-0 h-4" />
-
-                    <div className="bg-[#1a1a2e]/95 backdrop-blur-md border border-[#4a388f]/40 rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.4)] min-w-[700px] overflow-hidden">
-                      <div className="grid grid-cols-3 gap-6 p-6">
-                        {/* Website Section */}
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3 pb-2 border-b border-[#4a388f]/30">
-                            <Image src="/website.svg" alt="Website" width={24} height={24} className="w-6 h-6" />
-                            <h3 className="font-semibold text-white text-lg">{t.website}</h3>
-                          </div>
-                          <a href="/services/website-development" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
-                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            {t.websiteDev}
-                          </a>
-                          <a href="/services/website-maintenance" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
-                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            {t.websiteMaintenance}
-                          </a>
-                        </div>
-
-                        {/* E-commerce Section */}
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3 pb-2 border-b border-[#4a388f]/30">
-                            <Image src="/ecommerce.svg" alt="E-commerce" width={24} height={24} className="w-6 h-6" />
-                            <h3 className="font-semibold text-white text-lg">{t.ecommerce}</h3>
-                          </div>
-                          <a href="/services/online-store" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
-                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            {t.onlineStore}
-                          </a>
-                          <a href="/services/shopify" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
-                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            {t.shopifyStore}
-                          </a>
-                        </div>
-
-                        {/* Design & Graphics Section */}
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3 pb-2 border-b border-[#4a388f]/30">
-                            <Image src="/framer.svg" alt="Design" width={24} height={24} className="w-6 h-6" />
-                            <h3 className="font-semibold text-white text-lg">{t.design}</h3>
-                          </div>
-                          <a href="/services/brand-identity" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
-                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            {t.brandIdentity}
-                          </a>
-                          <a href="/services/frontend-design" className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]">
-                            <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                              <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            {t.frontEnd}
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50">
+        <div className="flex justify-center mt-2 md:mt-8 px-3 md:px-4">
+          <StarBorder
+            as="div"
+            color="#ff00ff"
+            speed="6s"
+            thickness={1}
+            className="bg-[#1a1a2e]/80 backdrop-blur-md rounded-full py-5 md:py-6 shadow-[0_0_30px_rgba(138,43,226,0.4)] border border-[#4a388f]/30 relative"
+          >
+            <div className="flex items-center justify-between w-full px-6 md:px-12 gap-8 md:gap-16">
+              <div className="flex items-center gap-2 md:gap-3">
+                <Image
+                  src="/logo.svg"
+                  alt="CodeByLapins"
+                  width={32}
+                  height={32}
+                  className="w-8 h-8 md:w-10 md:h-10 rounded-lg object-contain"
+                  style={{ imageRendering: 'crisp-edges' }}
+                  priority
+                />
+                <BlurText
+                  text="CodeByLapins"
+                  delay={50}
+                  animateBy="characters"
+                  direction="top"
+                  className="text-sm md:text-xl font-semibold text-white"
+                />
               </div>
 
-              <a href="#about" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">{t.about}</a>
-              <a href="#works" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">{t.works}</a>
-              <a href="#contact" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">{t.contact}</a>
+              {/* Desktop Navigation */}
+              <div className="hidden md:flex gap-8 md:gap-12 items-center text-white text-sm md:text-base">
+                <a href="#home" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">{t.home}</a>
 
-              {/* Language Dropdown */}
-              <div
-                className="relative ml-4"
-                onMouseEnter={() => setLanguageDropdownOpen(true)}
-                onMouseLeave={() => setLanguageDropdownOpen(false)}
-              >
-                <button className="flex items-center gap-1.5 hover:scale-110 transition-all duration-200">
-                  <Image
-                    src={currentLanguage.flag}
-                    alt={currentLanguage.code.toUpperCase()}
-                    width={28}
-                    height={28}
-                    className="w-7 h-7 rounded"
-                  />
-                  <svg className={`w-3 h-3 transition-transform ${languageDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-
-                {languageDropdownOpen && (
-                  <div className="absolute top-full right-0 pt-4">
-                    {/* Invisible hover area */}
-                    <div className="absolute top-0 right-0 left-0 h-4" />
-
-                    <div className="bg-[#1a1a2e]/95 backdrop-blur-md border border-[#4a388f]/40 rounded-xl shadow-[0_0_30px_rgba(138,43,226,0.4)] overflow-hidden min-w-[160px]">
-                      {languages.map((lang) => (
-                        <button
-                          key={lang.code}
-                          onClick={() => {
-                            setLanguage(lang.code);
-                            setLanguageDropdownOpen(false);
-                          }}
-                          className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-[#4a388f]/20 transition-colors ${
-                            currentLang === lang.code ? 'bg-[#4a388f]/10' : ''
-                          }`}
-                        >
-                          <Image
-                            src={lang.flag}
-                            alt={lang.code.toUpperCase()}
-                            width={24}
-                            height={24}
-                            className="w-6 h-6 rounded"
-                          />
-                          <span className="text-white text-sm font-medium">{lang.name}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden flex flex-col gap-1 p-2"
-              aria-label="Toggle menu"
-            >
-              <span className="w-1 h-1 bg-white rounded-full"></span>
-              <span className="w-1 h-1 bg-white rounded-full"></span>
-              <span className="w-1 h-1 bg-white rounded-full"></span>
-            </button>
-
-            {/* Mobile Dropdown Menu */}
-            {mobileMenuOpen && (
-              <div className="absolute top-full mt-2 right-0 bg-[#1a1a2e]/95 backdrop-blur-md border border-[#4a388f]/40 rounded-2xl py-4 px-6 flex flex-col gap-3 shadow-lg shadow-[#4a388f]/20 md:hidden min-w-[200px]">
-                <a href="#home" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#9b7fd9] transition-colors font-medium text-white text-sm">{t.home}</a>
-
-                {/* Mobile Services Accordion */}
-                <div>
-                  <button
-                    onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                    className="flex items-center justify-between w-full hover:text-[#9b7fd9] transition-colors font-medium text-white text-sm"
-                  >
+                {/* Services Dropdown */}
+                <div
+                  className="relative"
+                  onMouseEnter={() => setServicesDropdownOpen(true)}
+                  onMouseLeave={() => setServicesDropdownOpen(false)}
+                >
+                  <button className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium flex items-center gap-1">
                     {t.services}
-                    <svg className={`w-4 h-4 transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <ChevronDown className={`w-4 h-4 transition-transform ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
-                  {mobileServicesOpen && (
-                    <div className="mt-2 ml-4 space-y-3 border-l-2 border-[#4a388f]/30 pl-3">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1.5">
-                          <Image src="/website.svg" alt="Website" width={16} height={16} className="w-4 h-4" />
-                          <span className="text-xs font-semibold text-[#9b7fd9]">{t.website}</span>
+
+                  {servicesDropdownOpen && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4">
+                      <div className="absolute top-0 left-0 right-0 h-4" />
+
+                      <div className="bg-[#1a1a2e]/95 backdrop-blur-md border border-[#4a388f]/40 rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.4)] min-w-[700px] overflow-hidden">
+                        <div className="grid grid-cols-3 gap-6 p-6">
+                          {services.map((service, idx) => (
+                            <div key={idx} className="space-y-3">
+                              <div className="flex items-center gap-3 pb-2 border-b border-[#4a388f]/30">
+                                <Image src={service.icon} alt={service.category} width={24} height={24} className="w-6 h-6" />
+                                <h3 className="font-semibold text-white text-lg">{service.category}</h3>
+                              </div>
+                              {service.items.map((item, itemIdx) => (
+                                <a
+                                  key={itemIdx}
+                                  href={item.href}
+                                  className="flex items-center gap-2 text-gray-300 hover:text-[#9b7fd9] transition-colors text-sm py-1.5 font-[family-name:var(--font-ibm-plex-mono)]"
+                                >
+                                  <svg className="w-4 h-4 flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                  </svg>
+                                  {item.name}
+                                </a>
+                              ))}
+                            </div>
+                          ))}
                         </div>
-                        <a href="/services/website-development" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
-                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
-                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          {t.websiteDev}
-                        </a>
-                        <a href="/services/website-maintenance" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
-                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
-                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          {t.websiteMaintenance}
-                        </a>
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2 mb-1.5">
-                          <Image src="/ecommerce.svg" alt="E-commerce" width={16} height={16} className="w-4 h-4" />
-                          <span className="text-xs font-semibold text-[#9b7fd9]">{t.ecommerce}</span>
-                        </div>
-                        <a href="/services/online-store" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
-                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
-                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          {t.onlineStore}
-                        </a>
-                        <a href="/services/shopify" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
-                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
-                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          {t.shopifyStore}
-                        </a>
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2 mb-1.5">
-                          <Image src="/framer.svg" alt="Design" width={16} height={16} className="w-4 h-4" />
-                          <span className="text-xs font-semibold text-[#9b7fd9]">{t.design}</span>
-                        </div>
-                        <a href="/services/brand-identity" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
-                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
-                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          {t.brandIdentity}
-                        </a>
-                        <a href="/services/frontend-design" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-300 hover:text-white text-xs py-1 font-[family-name:var(--font-ibm-plex-mono)]">
-                          <svg className="w-3 h-3 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none">
-                            <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          {t.frontEnd}
-                        </a>
                       </div>
                     </div>
                   )}
                 </div>
 
-                <a href="#about" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#9b7fd9] transition-colors font-medium text-white text-sm">{t.about}</a>
-                <a href="#works" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#9b7fd9] transition-colors font-medium text-white text-sm">{t.works}</a>
-                <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#9b7fd9] transition-colors font-medium text-white text-sm">{t.contact}</a>
+                <a href="#about" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">{t.about}</a>
+                <a href="#works" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">{t.works}</a>
+                <a href="#contact" className="hover:text-[#4a388f] hover:scale-110 transition-all duration-200 font-medium">{t.contact}</a>
 
-                {/* Mobile Language Switcher */}
-                <div className="pt-2 border-t border-[#4a388f]/30 mt-2 space-y-1">
+                {/* Language Switcher Desktop */}
+                <div className="flex items-center gap-2 pl-4 border-l border-[#4a388f]/30">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
-                      onClick={() => {
-                        setLanguage(lang.code);
-                        setMobileMenuOpen(false);
-                      }}
-                      className={`w-full flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#4a388f]/20 transition-colors ${
-                        currentLang === lang.code ? 'bg-[#4a388f]/10' : ''
+                      onClick={() => setLanguage(lang.code)}
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
+                        currentLang === lang.code
+                          ? 'bg-[#4a388f]/30 text-white'
+                          : 'text-gray-400 hover:text-white hover:bg-[#4a388f]/10'
                       }`}
                     >
-                      <Image
-                        src={lang.flag}
-                        alt={lang.code.toUpperCase()}
-                        width={20}
-                        height={20}
-                        className="w-5 h-5 rounded"
-                      />
-                      <span className="text-white text-sm">{lang.name}</span>
+                      <Image src={lang.flag} alt={lang.name} width={20} height={20} className="w-5 h-5" />
+                      <span className="text-xs font-medium">{lang.code.toUpperCase()}</span>
                     </button>
                   ))}
                 </div>
               </div>
-            )}
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="md:hidden text-white/80 hover:text-white transition-colors"
+                aria-label="Open menu"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+            </div>
+          </StarBorder>
+        </div>
+      </nav>
+
+      {/* Mobile Navigation - Main Panel */}
+      <div
+        className={`fixed inset-0 bg-[#0a0a0f] z-[100] transform transition-transform duration-300 ease-in-out ${
+          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        } md:hidden`}
+      >
+        {/* Header */}
+        <div className="sticky top-0 bg-[#0a0a0f] border-b border-white/10 px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Image
+              src="/logo.svg"
+              alt="CodeByLapins"
+              width={24}
+              height={24}
+              className="w-6 h-6"
+            />
+            <span className="text-[#6450E0] font-bold text-lg">CodeByLapins</span>
           </div>
-        </StarBorder>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-white/80 hover:text-white transition-colors"
+            aria-label="Close menu"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Navigation Links */}
+        <div className="overflow-y-auto h-[calc(100vh-65px)] px-6 py-6">
+          <nav className="space-y-2">
+            <a
+              href="#home"
+              onClick={handleNavClick}
+              className="flex items-center justify-between py-4 px-4 rounded-lg hover:bg-white/5 transition-colors group"
+            >
+              <span className="text-white/90 group-hover:text-white text-lg font-medium">
+                {t.home}
+              </span>
+            </a>
+
+            <button
+              onClick={() => setMobileServicesOpen(true)}
+              className="w-full flex items-center justify-between py-4 px-4 rounded-lg hover:bg-white/5 transition-colors group"
+            >
+              <span className="text-white/90 group-hover:text-white text-lg font-medium">
+                {t.services}
+              </span>
+              <ChevronRight className="w-5 h-5 text-white/40 group-hover:text-[#6450E0] transition-colors" />
+            </button>
+
+            <a
+              href="#about"
+              onClick={handleNavClick}
+              className="flex items-center justify-between py-4 px-4 rounded-lg hover:bg-white/5 transition-colors group"
+            >
+              <span className="text-white/90 group-hover:text-white text-lg font-medium">
+                {t.about}
+              </span>
+            </a>
+
+            <a
+              href="#works"
+              onClick={handleNavClick}
+              className="flex items-center justify-between py-4 px-4 rounded-lg hover:bg-white/5 transition-colors group"
+            >
+              <span className="text-white/90 group-hover:text-white text-lg font-medium">
+                {t.works}
+              </span>
+            </a>
+
+            <a
+              href="#contact"
+              onClick={handleNavClick}
+              className="flex items-center justify-between py-4 px-4 rounded-lg hover:bg-white/5 transition-colors group"
+            >
+              <span className="text-white/90 group-hover:text-white text-lg font-medium">
+                {t.contact}
+              </span>
+            </a>
+
+            {/* Language Switcher Mobile */}
+            <div className="pt-6 mt-6 border-t border-white/10">
+              <div className="px-4 py-2">
+                <span className="text-white/60 text-sm font-medium">{t.language}</span>
+              </div>
+              <div className="flex gap-2 px-4 pt-2">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-medium transition-colors ${
+                      currentLang === lang.code
+                        ? 'bg-[#6450E0] text-white'
+                        : 'bg-white/5 text-white/70 hover:bg-white/10'
+                    }`}
+                  >
+                    <Image src={lang.flag} alt={lang.name} width={20} height={20} className="w-5 h-5" />
+                    <span>{lang.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </nav>
+        </div>
       </div>
-    </nav>
+
+      {/* Mobile Services Panel (Second Screen) */}
+      <div
+        className={`fixed inset-0 bg-[#0a0a0f] z-[110] transform transition-transform duration-300 ease-in-out ${
+          mobileServicesOpen ? 'translate-x-0' : 'translate-x-full'
+        } md:hidden`}
+      >
+        {/* Header */}
+        <div className="sticky top-0 bg-[#0a0a0f] border-b border-white/10 px-6 py-4 flex items-center justify-between">
+          <button
+            onClick={() => setMobileServicesOpen(false)}
+            className="flex items-center gap-2 text-white hover:text-[#6450E0] transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span className="font-medium">{t.services}</span>
+          </button>
+        </div>
+
+        {/* Services List */}
+        <div className="overflow-y-auto h-[calc(100vh-65px)] px-6 py-6">
+          <div className="space-y-8">
+            {services.map((category, idx) => (
+              <div key={idx}>
+                <h3 className="text-[#6450E0] font-semibold text-sm uppercase tracking-wider mb-4 flex items-center gap-2">
+                  <Image src={category.icon} alt={category.category} width={20} height={20} className="w-5 h-5" />
+                  {category.category}
+                </h3>
+                <ul className="space-y-1">
+                  {category.items.map((item, itemIdx) => (
+                    <li key={itemIdx}>
+                      <a
+                        href={item.href}
+                        onClick={handleNavClick}
+                        className="flex items-center justify-between py-3 px-4 rounded-lg hover:bg-white/5 transition-colors group"
+                      >
+                        <span className="text-white/90 group-hover:text-white text-base">
+                          {item.name}
+                        </span>
+                        <ChevronRight className="w-5 h-5 text-white/40 group-hover:text-[#6450E0] transition-colors" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

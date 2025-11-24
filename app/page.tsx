@@ -85,12 +85,12 @@ export default function Home() {
         <div className="relative z-20 text-center px-6 max-w-4xl flex flex-col items-center justify-center w-full mx-auto">
           <div className="flex flex-col items-center w-full" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.6)' }}>
             <div className="w-full flex justify-center mb-2 sm:mb-3 md:mb-4">
-              <div className="text-[3.5rem] sm:text-[4.5rem] md:hidden font-black text-white">
+              <div className="md:hidden font-black text-white" style={{ fontSize: 'clamp(3.5rem, 12vw, 5rem)' }}>
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="3.5rem"
+                  fontSize="clamp(3.5rem, 12vw, 5rem)"
                   fontWeight={900}
                   color="#ffffff"
                 >
@@ -111,12 +111,12 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full flex justify-center mb-2 sm:mb-3 md:mb-4">
-              <div className="text-[3.5rem] sm:text-[4.5rem] md:hidden font-black text-white">
+              <div className="md:hidden font-black text-white" style={{ fontSize: 'clamp(3.5rem, 12vw, 5rem)' }}>
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="3.5rem"
+                  fontSize="clamp(3.5rem, 12vw, 5rem)"
                   fontWeight={900}
                   color="#ffffff"
                 >
@@ -137,12 +137,12 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full flex justify-center mb-2">
-              <div className="text-[3.5rem] sm:text-[4.5rem] md:hidden font-black text-white">
+              <div className="md:hidden font-black text-white" style={{ fontSize: 'clamp(3.5rem, 12vw, 5rem)' }}>
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="3.5rem"
+                  fontSize="clamp(3.5rem, 12vw, 5rem)"
                   fontWeight={900}
                   color="#ffffff"
                 >

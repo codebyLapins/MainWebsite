@@ -85,7 +85,7 @@ export default function Home() {
         <div className="relative z-20 text-center px-6 max-w-4xl flex flex-col items-center justify-center w-full mx-auto">
           <div className="flex flex-col items-center w-full" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.6)' }}>
             <div className="w-full flex justify-center mb-2 sm:mb-3 md:mb-4">
-              <div className="sm:hidden font-black text-white">
+              <div className="min-[390px]:hidden font-black text-white">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
@@ -97,7 +97,7 @@ export default function Home() {
                   {t.beautiful}
                 </FuzzyText>
               </div>
-              <div className="hidden sm:block md:hidden font-black text-white">
+              <div className="hidden min-[390px]:block md:hidden font-black text-white">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
@@ -123,7 +123,7 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full flex justify-center mb-2 sm:mb-3 md:mb-4">
-              <div className="sm:hidden font-black text-white">
+              <div className="min-[390px]:hidden font-black text-white">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
@@ -135,7 +135,7 @@ export default function Home() {
                   {t.functional}
                 </FuzzyText>
               </div>
-              <div className="hidden sm:block md:hidden font-black text-white">
+              <div className="hidden min-[390px]:block md:hidden font-black text-white">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
@@ -161,7 +161,7 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full flex justify-center mb-2">
-              <div className="sm:hidden font-black text-white">
+              <div className="min-[390px]:hidden font-black text-white">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
@@ -173,7 +173,7 @@ export default function Home() {
                   {t.yours}
                 </FuzzyText>
               </div>
-              <div className="hidden sm:block md:hidden font-black text-white">
+              <div className="hidden min-[390px]:block md:hidden font-black text-white">
                 <FuzzyText
                   baseIntensity={0.13}
                   hoverIntensity={0.72}

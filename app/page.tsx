@@ -102,7 +102,7 @@ export default function Home() {
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="5rem"
+                  fontSize="5.5rem"
                   fontWeight={900}
                   color="#ffffff"
                 >
@@ -140,7 +140,7 @@ export default function Home() {
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="5rem"
+                  fontSize="5.5rem"
                   fontWeight={900}
                   color="#ffffff"
                 >
@@ -178,7 +178,7 @@ export default function Home() {
                   baseIntensity={0.13}
                   hoverIntensity={0.72}
                   enableHover={false}
-                  fontSize="5rem"
+                  fontSize="5.5rem"
                   fontWeight={900}
                   color="#ffffff"
                 >

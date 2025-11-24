@@ -11,6 +11,7 @@ interface FuzzyTextProps {
   enableHover?: boolean;
   baseIntensity?: number;
   hoverIntensity?: number;
+  skipResponsiveCalc?: boolean; // Skip internal responsive calculation
 }
 
 const FuzzyText = ({
@@ -21,7 +22,8 @@ const FuzzyText = ({
   color = '#fff',
   enableHover = true,
   baseIntensity = 0.18,
-  hoverIntensity = 0.5
+  hoverIntensity = 0.5,
+  skipResponsiveCalc = false
 }: FuzzyTextProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -43,25 +45,90 @@ const FuzzyText = ({
       const computedFontFamily =
         fontFamily === 'inherit' ? window.getComputedStyle(canvas).fontFamily || 'sans-serif' : fontFamily;
 
-      const fontSizeStr = typeof fontSize === 'number' ? `${fontSize}px` : fontSize;
-      let numericFontSize: number;
+      const text = React.Children.toArray(children).join('');
+
+      // Get base font size
+      let baseFontSize: number;
       if (typeof fontSize === 'number') {
-        numericFontSize = fontSize;
+        baseFontSize = fontSize;
       } else {
         const temp = document.createElement('span');
         temp.style.fontSize = fontSize;
         document.body.appendChild(temp);
         const computedSize = window.getComputedStyle(temp).fontSize;
-        numericFontSize = parseFloat(computedSize);
+        baseFontSize = parseFloat(computedSize);
         document.body.removeChild(temp);
       }
 
-      const text = React.Children.toArray(children).join('');
+      // Calculate responsive font size or use provided size directly
+      const viewportWidth = window.innerWidth;
+      const isMobile = viewportWidth < 768;
+      const horizontalMargin = isMobile ? 10 : 50;
 
+      let responsiveFontSize: number;
+      let numericFontSize: number;
+      let fontSizeStr: string;
+
+      if (skipResponsiveCalc) {
+        // Use the provided fontSize directly without calculation
+        responsiveFontSize = baseFontSize;
+        numericFontSize = baseFontSize;
+        fontSizeStr = `${baseFontSize}px`;
+      } else {
+        // Calculate responsive font size based on viewport width and text width
+        const padding = 48; // Account for px-6 (24px per side)
+        const maxAllowedWidth = viewportWidth - (horizontalMargin * 2) - padding;
+
+        let targetFontSize: number;
+        if (viewportWidth < 480) {
+          // Very small phones - start with 18% of screen width
+          targetFontSize = Math.min(baseFontSize, viewportWidth * 0.18);
+        } else if (viewportWidth < 768) {
+          // Larger phones - start with 14% of screen width
+          targetFontSize = Math.min(baseFontSize, viewportWidth * 0.14);
+        } else {
+          // Desktop - use the provided fontSize
+          targetFontSize = baseFontSize;
+        }
+
+        // Create temporary canvas for text measurement
+        const offscreen = document.createElement('canvas');
+        const offCtx = offscreen.getContext('2d');
+        if (!offCtx) return;
+
+        // Iteratively reduce font size until text fits within allowed width
+        responsiveFontSize = targetFontSize;
+        let measuredWidth = 0;
+        let iterations = 0;
+        const maxIterations = 50;
+
+        do {
+          offCtx.font = `${fontWeight} ${responsiveFontSize}px ${computedFontFamily}`;
+          offCtx.textBaseline = 'alphabetic';
+          const metrics = offCtx.measureText(text);
+
+          const actualLeft = metrics.actualBoundingBoxLeft ?? 0;
+          const actualRight = metrics.actualBoundingBoxRight ?? metrics.width;
+          measuredWidth = Math.ceil(actualLeft + actualRight);
+
+          if (measuredWidth > maxAllowedWidth) {
+            responsiveFontSize *= 0.95;
+            iterations++;
+          } else {
+            break;
+          }
+        } while (iterations < maxIterations);
+
+        numericFontSize = responsiveFontSize;
+        fontSizeStr = `${responsiveFontSize}px`;
+      }
+
+      // Create offscreen canvas for final rendering
       const offscreen = document.createElement('canvas');
       const offCtx = offscreen.getContext('2d');
       if (!offCtx) return;
 
+      // Final measurement with determined font size
       offCtx.font = `${fontWeight} ${fontSizeStr} ${computedFontFamily}`;
       offCtx.textBaseline = 'alphabetic';
       const metrics = offCtx.measureText(text);
@@ -86,7 +153,7 @@ const FuzzyText = ({
       offCtx.fillStyle = color;
       offCtx.fillText(text, xOffset - actualLeft, actualAscent);
 
-      const horizontalMargin = 50;
+      // Use the horizontalMargin already calculated above
       const verticalMargin = 0;
       canvas.width = offscreenWidth + horizontalMargin * 2;
       canvas.height = tightHeight + verticalMargin * 2;
@@ -172,7 +239,7 @@ const FuzzyText = ({
         (canvas as any).cleanupFuzzyText();
       }
     };
-  }, [children, fontSize, fontWeight, fontFamily, color, enableHover, baseIntensity, hoverIntensity]);
+  }, [children, fontSize, fontWeight, fontFamily, color, enableHover, baseIntensity, hoverIntensity, skipResponsiveCalc]);
 
   return <canvas ref={canvasRef} />;
 };

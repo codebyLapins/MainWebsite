@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Navbar, { translations } from "@/components/Navbar";
-import FuzzyText from "@/components/FuzzyText";
+import UnifiedFuzzyHero from "@/components/UnifiedFuzzyHero";
 import ShinyText from "@/components/ShinyText";
 import RotatingText from "@/components/RotatingText";
 import MagicBento from "@/components/MagicBento";
@@ -83,122 +83,15 @@ export default function Home() {
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Hero Content */}
         <div className="relative z-20 text-center px-6 max-w-4xl flex flex-col items-center justify-center w-full mx-auto">
-          <div className="flex flex-col items-center w-full" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.6)' }}>
-            <div className="w-full flex justify-center mb-2 sm:mb-3 md:mb-4">
-              <div className="min-[390px]:hidden font-black text-white">
-                <FuzzyText
-                  baseIntensity={0.13}
-                  hoverIntensity={0.72}
-                  enableHover={false}
-                  fontSize="3.75rem"
-                  fontWeight={900}
-                  color="#ffffff"
-                >
-                  {t.beautiful}
-                </FuzzyText>
-              </div>
-              <div className="hidden min-[390px]:block md:hidden font-black text-white">
-                <FuzzyText
-                  baseIntensity={0.13}
-                  hoverIntensity={0.72}
-                  enableHover={false}
-                  fontSize="5.5rem"
-                  fontWeight={900}
-                  color="#ffffff"
-                >
-                  {t.beautiful}
-                </FuzzyText>
-              </div>
-              <div className="hidden md:block">
-                <FuzzyText
-                  baseIntensity={0.13}
-                  hoverIntensity={0.72}
-                  enableHover={true}
-                  fontSize="6rem"
-                  fontWeight={900}
-                  color="#ffffff"
-                >
-                  {t.beautiful}
-                </FuzzyText>
-              </div>
-            </div>
-            <div className="w-full flex justify-center mb-2 sm:mb-3 md:mb-4">
-              <div className="min-[390px]:hidden font-black text-white">
-                <FuzzyText
-                  baseIntensity={0.13}
-                  hoverIntensity={0.72}
-                  enableHover={false}
-                  fontSize="3.75rem"
-                  fontWeight={900}
-                  color="#ffffff"
-                >
-                  {t.functional}
-                </FuzzyText>
-              </div>
-              <div className="hidden min-[390px]:block md:hidden font-black text-white">
-                <FuzzyText
-                  baseIntensity={0.13}
-                  hoverIntensity={0.72}
-                  enableHover={false}
-                  fontSize="5.5rem"
-                  fontWeight={900}
-                  color="#ffffff"
-                >
-                  {t.functional}
-                </FuzzyText>
-              </div>
-              <div className="hidden md:block">
-                <FuzzyText
-                  baseIntensity={0.13}
-                  hoverIntensity={0.72}
-                  enableHover={true}
-                  fontSize="6rem"
-                  fontWeight={900}
-                  color="#ffffff"
-                >
-                  {t.functional}
-                </FuzzyText>
-              </div>
-            </div>
-            <div className="w-full flex justify-center mb-2">
-              <div className="min-[390px]:hidden font-black text-white">
-                <FuzzyText
-                  baseIntensity={0.13}
-                  hoverIntensity={0.72}
-                  enableHover={false}
-                  fontSize="3.75rem"
-                  fontWeight={900}
-                  color="#ffffff"
-                >
-                  {t.yours}
-                </FuzzyText>
-              </div>
-              <div className="hidden min-[390px]:block md:hidden font-black text-white">
-                <FuzzyText
-                  baseIntensity={0.13}
-                  hoverIntensity={0.72}
-                  enableHover={false}
-                  fontSize="5.5rem"
-                  fontWeight={900}
-                  color="#ffffff"
-                >
-                  {t.yours}
-                </FuzzyText>
-              </div>
-              <div className="hidden md:block">
-                <FuzzyText
-                  baseIntensity={0.13}
-                  hoverIntensity={0.72}
-                  enableHover={true}
-                  fontSize="6rem"
-                  fontWeight={900}
-                  color="#ffffff"
-                >
-                  {t.yours}
-                </FuzzyText>
-              </div>
-            </div>
-          </div>
+          <UnifiedFuzzyHero
+            texts={[t.beautiful, t.functional, t.yours]}
+            baseIntensity={0.13}
+            hoverIntensity={0.72}
+            enableHover={typeof window !== 'undefined' && window.innerWidth >= 768}
+            maxFontSize={96}
+            fontWeight={900}
+            color="#ffffff"
+          />
 
           <div className="mt-6 md:mt-8 w-full flex justify-center">
             <RotatingText

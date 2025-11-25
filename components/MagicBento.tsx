@@ -130,6 +130,70 @@ const updateCardGlowProperties = (card: HTMLElement, mouseX: number, mouseY: num
   card.style.setProperty('--glow-radius', `${radius}px`);
 };
 
+// Hook to detect device orientation and provide tilt values
+const useDeviceTilt = (enabled: boolean) => {
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+  const [isSupported, setIsSupported] = useState(false);
+
+  useEffect(() => {
+    if (!enabled) return;
+
+    // Check if DeviceOrientationEvent is supported
+    if (typeof window === 'undefined' || !('DeviceOrientationEvent' in window)) {
+      return;
+    }
+
+    const checkPermission = async () => {
+      // iOS 13+ requires permission
+      if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
+        try {
+          const permission = await (DeviceOrientationEvent as any).requestPermission();
+          if (permission === 'granted') {
+            setIsSupported(true);
+          }
+        } catch {
+          // Permission denied or error
+          setIsSupported(false);
+        }
+      } else {
+        // Non-iOS or older iOS - no permission needed
+        setIsSupported(true);
+      }
+    };
+
+    checkPermission();
+  }, [enabled]);
+
+  useEffect(() => {
+    if (!enabled || !isSupported) return;
+
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      // beta: front-to-back tilt in degrees (-180 to 180)
+      // gamma: left-to-right tilt in degrees (-90 to 90)
+      const beta = event.beta || 0;
+      const gamma = event.gamma || 0;
+
+      // Normalize to reasonable range and invert for natural feel
+      // Limit to max ±8 degrees of card rotation
+      const MAX_TILT = 8;
+
+      // Map device tilt (±45 degrees) to card rotation (±MAX_TILT degrees)
+      const rotateX = Math.max(-MAX_TILT, Math.min(MAX_TILT, -(beta / 45) * MAX_TILT));
+      const rotateY = Math.max(-MAX_TILT, Math.min(MAX_TILT, (gamma / 45) * MAX_TILT));
+
+      setTilt({ rotateX, rotateY });
+    };
+
+    window.addEventListener('deviceorientation', handleOrientation);
+
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation);
+    };
+  }, [enabled, isSupported]);
+
+  return { tilt, isSupported };
+};
+
 interface ParticleCardProps {
   children: React.ReactNode;
   className?: string;
@@ -140,6 +204,8 @@ interface ParticleCardProps {
   enableTilt?: boolean;
   clickEffect?: boolean;
   enableMagnetism?: boolean;
+  isMobile?: boolean;
+  deviceTilt?: { rotateX: number; rotateY: number };
 }
 
 const ParticleCard = ({
@@ -151,7 +217,9 @@ const ParticleCard = ({
   glowColor = DEFAULT_GLOW_COLOR,
   enableTilt = true,
   clickEffect = false,
-  enableMagnetism = false
+  enableMagnetism = false,
+  isMobile = false,
+  deviceTilt
 }: ParticleCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLElement[]>([]);
@@ -230,8 +298,24 @@ const ParticleCard = ({
     });
   }, [initializeParticles]);
 
+  // Apply device tilt on mobile
   useEffect(() => {
-    if (disableAnimations || !cardRef.current) return;
+    if (!isMobile || !deviceTilt || !cardRef.current) return;
+
+    const element = cardRef.current;
+
+    gsap.to(element, {
+      rotateX: deviceTilt.rotateX,
+      rotateY: deviceTilt.rotateY,
+      duration: 0.2,
+      ease: 'power2.out',
+      transformPerspective: 1000
+    });
+  }, [deviceTilt, isMobile]);
+
+  // Desktop hover/mouse interactions
+  useEffect(() => {
+    if (disableAnimations || !cardRef.current || isMobile) return;
 
     const element = cardRef.current;
 
@@ -366,7 +450,7 @@ const ParticleCard = ({
       element.removeEventListener('click', handleClick);
       clearAllParticles();
     };
-  }, [animateParticles, clearAllParticles, disableAnimations, enableTilt, enableMagnetism, clickEffect, glowColor]);
+  }, [animateParticles, clearAllParticles, disableAnimations, enableTilt, enableMagnetism, clickEffect, glowColor, isMobile]);
 
   return (
     <div
@@ -534,7 +618,7 @@ const useMobileDetection = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+    const checkMobile = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
 
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -576,17 +660,21 @@ const MagicBento = ({
 }: MagicBentoProps) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const isMobile = useMobileDetection();
-  const shouldDisableAnimations = disableAnimations || isMobile;
+
+  // Use device tilt on mobile, disable particle/spotlight on mobile for performance
+  const { tilt: deviceTilt, isSupported: tiltSupported } = useDeviceTilt(isMobile);
+  const shouldDisableParticles = disableAnimations || isMobile;
+  const shouldDisableSpotlight = disableAnimations || isMobile;
 
   const translations = cardTranslations[language];
   const cardData = translations.cards;
 
   return (
     <>
-      {enableSpotlight && (
+      {enableSpotlight && !shouldDisableSpotlight && (
         <GlobalSpotlight
           gridRef={gridRef}
-          disableAnimations={shouldDisableAnimations}
+          disableAnimations={shouldDisableSpotlight}
           enabled={enableSpotlight}
           spotlightRadius={spotlightRadius}
           glowColor={glowColor}
@@ -604,17 +692,19 @@ const MagicBento = ({
             } as React.CSSProperties
           };
 
-          if (enableStars) {
+          if (enableStars && !shouldDisableParticles) {
             return (
               <ParticleCard
                 key={index}
                 {...cardProps}
-                disableAnimations={shouldDisableAnimations}
+                disableAnimations={shouldDisableParticles}
                 particleCount={particleCount}
                 glowColor={glowColor}
                 enableTilt={enableTilt}
                 clickEffect={clickEffect}
                 enableMagnetism={enableMagnetism}
+                isMobile={isMobile}
+                deviceTilt={isMobile && tiltSupported ? deviceTilt : undefined}
               >
                 <div className="magic-bento-card__header">
                   <div className="magic-bento-card__label">{card.label}</div>

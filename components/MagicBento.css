@@ -94,22 +94,35 @@
   color: #d0c5e8;
 }
 
+/* Mobile: Full text, no clipping, auto height */
 @media (max-width: 767px) {
   .card-grid {
     grid-template-columns: 1fr;
     width: 100%;
     margin: 0 auto;
-    padding: 0;
-    gap: 0;
+    padding: 1rem;
+    gap: 1.5rem;
   }
 
   .magic-bento-card {
     width: 100%;
-    min-height: 300px;
-    border-radius: 0;
+    min-height: auto; /* Allow cards to grow to fit content */
+    aspect-ratio: auto; /* Remove fixed aspect ratio */
+    border-radius: 16px;
+  }
+
+  /* Disable text clamping on mobile */
+  .magic-bento-card--text-autohide .magic-bento-card__title,
+  .magic-bento-card--text-autohide .magic-bento-card__description {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: initial;
+    text-overflow: clip;
   }
 }
 
+/* Desktop: Keep existing layout with text clamping */
 @media (min-width: 768px) {
   .card-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -135,6 +148,23 @@
 
   .magic-bento-card:nth-child(3) {
     min-height: 600px;
+  }
+
+  /* Text clamping on desktop when textAutoHide is enabled */
+  .magic-bento-card--text-autohide .magic-bento-card__title {
+    display: -webkit-box;
+    -webkit-line-clamp: var(--clamp-title);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .magic-bento-card--text-autohide .magic-bento-card__description {
+    display: -webkit-box;
+    -webkit-line-clamp: var(--clamp-desc);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

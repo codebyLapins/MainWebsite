@@ -9,6 +9,7 @@ import RotatingText from "@/components/RotatingText";
 import MagicBento from "@/components/MagicBento";
 import Dither from "@/components/Dither";
 import Masonry from "@/components/Masonry";
+import Magnet from "@/components/Magnet";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -109,12 +110,14 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center mt-8 md:mt-12 w-full px-6 sm:px-0">
-            <a
-              href="#contact"
-              className="w-full sm:w-auto max-w-[280px] px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 text-center text-sm md:text-base shadow-lg"
-            >
-              <ShinyText text={t.getInTouch} speed={3} />
-            </a>
+            <Magnet padding={120} disabled={false} magnetStrength={2}>
+              <a
+                href="#contact"
+                className="w-full sm:w-auto max-w-[280px] px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 text-center text-sm md:text-base shadow-lg"
+              >
+                <ShinyText text={t.getInTouch} speed={3} />
+              </a>
+            </Magnet>
             <a
               href="#about"
               className="w-full sm:w-auto max-w-[280px] px-6 py-3 md:px-8 md:py-4 border-2 border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-all transform hover:scale-105 text-center text-sm md:text-base shadow-lg"

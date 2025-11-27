@@ -237,13 +237,15 @@ export default function Navbar() {
                   style={{ imageRendering: 'crisp-edges' }}
                   priority
                 />
-                <BlurText
-                  text="CodeByLapins"
-                  delay={50}
-                  animateBy="characters"
-                  direction="top"
-                  className="text-sm md:text-xl font-semibold text-white"
-                />
+                <div className="hidden min-[1100px]:block">
+                  <BlurText
+                    text="CodeByLapins"
+                    delay={50}
+                    animateBy="characters"
+                    direction="top"
+                    className="text-sm md:text-xl font-semibold text-white whitespace-nowrap"
+                  />
+                </div>
               </div>
 
               {/* Desktop Navigation */}

@@ -97,7 +97,7 @@ export default function Home() {
           <div className="mt-6 md:mt-8 w-full flex justify-center">
             <RotatingText
               texts={[t.websites, t.webApps, t.ecommerceShort]}
-              mainClassName="px-5 py-2.5 bg-[#33496b] text-white overflow-hidden rounded-lg text-base md:text-2xl font-semibold shadow-lg"
+              mainClassName="mobile-rotating-badge px-5 py-2.5 bg-[#33496b] text-white overflow-hidden rounded-lg text-base md:text-2xl font-semibold shadow-lg"
               staggerFrom="last"
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
@@ -113,14 +113,14 @@ export default function Home() {
             <Magnet padding={120} disabled={false} magnetStrength={2}>
               <a
                 href="#contact"
-                className="w-full sm:w-auto max-w-[280px] px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 text-center text-sm md:text-base shadow-lg"
+                className="hero-cta-primary w-full sm:w-auto max-w-[280px] px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 text-center text-sm md:text-base shadow-lg"
               >
                 <ShinyText text={t.getInTouch} speed={3} />
               </a>
             </Magnet>
             <a
               href="#about"
-              className="w-full sm:w-auto max-w-[280px] px-6 py-3 md:px-8 md:py-4 border-2 border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-all transform hover:scale-105 text-center text-sm md:text-base shadow-lg"
+              className="hero-cta-secondary w-full sm:w-auto max-w-[280px] px-6 py-3 md:px-8 md:py-4 border-2 border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-all transform hover:scale-105 text-center text-sm md:text-base shadow-lg"
             >
               <ShinyText text={t.learnMore} speed={3} />
             </a>
